@@ -1,9 +1,9 @@
-**Spring MVC and Hibernate Store project**
+**Spring Boot and Hibernate Store project**
 
-I created this project to help further learn the Spring and Hibernate framework.
+I created this project to help further learn the Spring and Hibernate framework. (Spring Boot, Spring Security, Spring AOP, etc..)
+This project is converted from the Spring MVC online store project that is located in this same repository.
 
-This projects will be an online store that allows customers to 
-login, view all products, filter products, and add orders based on the products that the users have selected.
+This project will be an online store that allows customers to login, view all products, filter products, and add orders based on the products that the users have selected.
 
 This project isn't a real-world example but the purpose is for me to further enhance my knowledge of the Spring MVC and Hibernate framework.
 
