@@ -98,7 +98,7 @@ public class Cart {
 	}
 
 	/**
-	 * Gets the lastmodified.
+	 * Gets the last modified date.
 	 *
 	 * @return the lastmodified
 	 */
@@ -107,7 +107,7 @@ public class Cart {
 	}
 
 	/**
-	 * Sets the lastmodified.
+	 * Sets the last modified date.
 	 *
 	 * @param lastmodified the new lastmodified
 	 */

@@ -53,31 +53,26 @@
         	<artifactId>spring-security-web</artifactId>
     		<version>5.0.0.RELEASE</version>
         </dependency>
-<dependency>
-   <groupId>org.springframework.security</groupId>
-   <artifactId>spring-security-config</artifactId>
-   <version>5.0.0.RELEASE</version>
-</dependency>
+
+		<dependency>
+   			<groupId>org.springframework.security</groupId>
+   			<artifactId>spring-security-config</artifactId>
+   			<version>5.0.0.RELEASE</version>
+		</dependency>
+
         <!-- AspectJ -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>${org.aspectj-version}</version>
         </dependency>
-<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-tx</artifactId>
-    <version>2.5.4</version>
-</dependency>
 
-<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
-<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-core</artifactId>
-    <version>5.2.12.Final</version>
-</dependency>
-
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+		<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-tx</artifactId>
+    		<version>2.5.4</version>
+		</dependency>
 
         <!-- Use MySQL Connector-J -->
         <dependency>
@@ -121,61 +116,64 @@
             <scope>provided</scope>
         </dependency>
 
-           <dependency>
-       <groupId>org.slf4j</groupId>
-       <artifactId>slf4j-log4j12</artifactId>
-   </dependency>
-
         <dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-dao</artifactId>
-    <version>2.0.8</version>
-</dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-actuator</artifactId>
-</dependency>
+       	   <groupId>org.slf4j</groupId>
+      	   <artifactId>slf4j-log4j12</artifactId>
+   	    </dependency>
 
+       <dependency>
+    	   <groupId>org.springframework</groupId>
+           <artifactId>spring-dao</artifactId>
+           <version>2.0.8</version>
+		</dependency>
 
-<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-entitymanager</artifactId>
-    <version>4.2.6.Final</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.tomcat.embed</groupId>
-    <artifactId>tomcat-embed-jasper</artifactId>
-</dependency>
-	    <dependency>
-        <groupId>javax.servlet</groupId>
+	<dependency>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-actuator</artifactId>
+	</dependency>
+
+	<dependency>
+    	<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-entitymanager</artifactId>
+    	<version>4.2.6.Final</version>
+	</dependency>
+
+	<dependency>
+    	<groupId>org.apache.tomcat.embed</groupId>
+    	<artifactId>tomcat-embed-jasper</artifactId>
+	</dependency>
+
+	<dependency>
+    	<groupId>javax.servlet</groupId>
         <artifactId>jstl</artifactId>
     </dependency>
-        <!-- https://mvnrepository.com/artifact/com.hazelcast/hazelcast -->
-<dependency>
-    <groupId>com.hazelcast</groupId>
-    <artifactId>hazelcast</artifactId>
-    <version>3.9.2</version>
-</dependency>
 
-<dependency>
-    <groupId>com.hazelcast</groupId>
-    <artifactId>hazelcast-client</artifactId>
-    <version>3.7.2</version>
-</dependency>
+    <!-- https://mvnrepository.com/artifact/com.hazelcast/hazelcast -->
+	<dependency>
+    	<groupId>com.hazelcast</groupId>
+    	<artifactId>hazelcast</artifactId>
+    	<version>3.9.2</version>
+	</dependency>
 
-<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
-<dependency>
-    <groupId>org.freemarker</groupId>
-    <artifactId>freemarker</artifactId>
-    <version>2.3.20</version>
-</dependency>
+	<dependency>
+    	<groupId>com.hazelcast</groupId>
+    	<artifactId>hazelcast-client</artifactId>
+    	<version>3.7.2</version>
+	</dependency>
 
-<dependency>
-    <groupId>javax.validation</groupId>
-    <artifactId>validation-api</artifactId>
-    <version>2.0.0.Final</version>
-</dependency>
-	</dependencies>
+	<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+	<dependency>
+    	<groupId>org.freemarker</groupId>
+    	<artifactId>freemarker</artifactId>
+    	<version>2.3.20</version>
+	</dependency>
+
+	<dependency>
+    	<groupId>javax.validation</groupId>
+    	<artifactId>validation-api</artifactId>
+    	<version>2.0.0.Final</version>
+	</dependency>
+</dependencies>
 
 	<build>
 		<plugins>

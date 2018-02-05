@@ -1,5 +1,7 @@
 package com.ebanks.springapp.controllers;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ebanks.springapp.model.Cart;
 import com.ebanks.springapp.model.Product;
 import com.ebanks.springapp.service.ProductService;
 
@@ -108,6 +111,36 @@ public class ProductController {
 				this.productService.getProductById(id));
 		model.addAttribute(LIST_PRODUCTS_MODEL,
 				this.productService.listProducts());
+		return PRODUCT;
+	}
+
+	/**
+	 * Adds a product to cart.
+	 *
+	 * @param model
+	 *            the model
+	 * @return the page view
+	 */
+	@PostMapping(value = "/product/cart/add")
+	public String addProductToCart(@ModelAttribute("orderAttribute") Product product,
+			@ModelAttribute("cartAttribute") Cart cart) {
+		PRODUCT_CONTROLLER_LOGGER.info("Adding order to cart");
+
+		return PRODUCT;
+	}
+
+	/**
+	 * Adds a list of products to cart.
+	 *
+	 * @param model
+	 *            the model
+	 * @return the page view
+	 */
+	@PostMapping(value = "/products/cart/add")
+	public String addProductListToCart(@ModelAttribute("productListAttribute") List<Product> productList,
+			@ModelAttribute("cartAttribute") Cart cart) {
+		PRODUCT_CONTROLLER_LOGGER.info("Adding order to cart");
+
 		return PRODUCT;
 	}
 }
