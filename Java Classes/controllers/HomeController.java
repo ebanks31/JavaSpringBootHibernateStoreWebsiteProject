@@ -35,7 +35,7 @@ public class HomeController {
 	}
 
     /**
-     * Index.
+     * The about page controller
      *
      * @return the string
      */
