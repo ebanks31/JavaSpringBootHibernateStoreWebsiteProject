@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * The HomeController for handling REST request from the home page.
+ * The Home Controller is for handling the REST request from the home page.
  */
 @Controller
 public class HomeController {
