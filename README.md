@@ -36,3 +36,7 @@ Additional documentation including UML diagrams, flowchart diagram, will be adde
 
 Swagger API Documentation added.
 Still a work in progress but the address will http://localhost:8080/api/swagger-ui.html
+
+**Hikari Connection Poll (HikariCP)**
+This project uses Hikari connection pool since it is faster than the embedded tomcat connection pool.
+More information can be found at this link here: http://www.baeldung.com/hikaricp
