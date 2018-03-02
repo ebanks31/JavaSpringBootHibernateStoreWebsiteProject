@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ebanks.springapp.dao.UserDAO;
 import com.ebanks.springapp.model.Role;
 import com.ebanks.springapp.model.User;
-import com.ebanks.springapps.repositories.RoleRepository;
-import com.ebanks.springapps.repositories.UserRepository;
+import com.ebanks.springapp.repositories.RoleRepository;
+import com.ebanks.springapp.repositories.UserRepository;
 
 /**
  * The Class UserServiceImpl. The class is the service layer for the User Controller.

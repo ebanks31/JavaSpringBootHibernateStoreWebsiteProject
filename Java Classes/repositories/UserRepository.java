@@ -1,15 +1,16 @@
-package com.ebanks.springapps.repositories.mysql;
+package com.ebanks.springapp.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.ebanks.springapp.model.User;
 
+// TODO: Auto-generated Javadoc
 /**
- * The Interface UserRepositoryMySQL.
+ * The Interface UserRepository.
  */
-@Repository("userRepositoryMySQL")
-public interface UserRepositoryMySQL extends JpaRepository<User, Long> {
+@Repository("userRepository")
+public interface UserRepository extends JpaRepository<User, Long> {
 
  	/**
  	 * Find user by email.

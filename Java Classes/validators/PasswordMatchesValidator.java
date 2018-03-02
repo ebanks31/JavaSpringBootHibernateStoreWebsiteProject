@@ -10,6 +10,7 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
   @Override
   public void initialize(PasswordMatches constraintAnnotation) {
   }
+
   @Override
   public boolean isValid(Object obj, ConstraintValidatorContext context){
       User user = (User) obj;

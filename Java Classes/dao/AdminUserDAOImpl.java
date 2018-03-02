@@ -11,6 +11,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 import com.ebanks.springapp.model.User;
@@ -24,7 +25,6 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
 
-	private SessionFactory sessionFactory;
 	private static final int LEGAL_AGE = 18;
 	private static final String FROM_PERSON_TABLE = "from Person";
 	private static final String ADDRESS = "address";
@@ -33,14 +33,18 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 	private static final String OWNERSHIP = "ownership";
 	private static final String NONOWNERSHIP = "non-owner";
 
+	@Autowired
+	private SessionFactory sessionFactory;
+
 	/**
 	 * Sets the session factory.
 	 *
 	 * @param sessionFactory the new session factory
-	 */
+
 	public void setSessionFactory(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+	*/
 
 	/**
 	 * {@inheritDoc}

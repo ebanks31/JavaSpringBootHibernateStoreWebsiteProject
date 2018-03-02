@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.ebanks.springapp.model.User;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface UserService.
  */
@@ -40,7 +39,7 @@ public interface AdminUserService {
 	 *            the id
 	 * @return the user by id
 	 */
-	User getUserById(int id);
+	User getUserById(long id);
 
 	/**
 	 * Removes the user.
@@ -48,7 +47,16 @@ public interface AdminUserService {
 	 * @param id
 	 *            the id
 	 */
-	void removeUser(int id);
+	void removeUserById(long id);
+
+	/**
+	 * Removes the user.
+	 *
+	 * @param user
+	 *            the user
+	 */
+	void removeUser(User user);
+
 
 	/**
 	 * Gets the people by address.

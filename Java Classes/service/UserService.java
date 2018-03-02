@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ebanks.springapp.model.User;
 
+// TODO: Auto-generated Javadoc
 /**
  * The interface class for the UserService.
  */
@@ -12,14 +13,14 @@ public interface UserService {
     /**
      * Adds the person.
      *
-     * @param p the p
+     * @param person the person
      */
     void addUser(User person);
 
     /**
      * Update person.
      *
-     * @param p the p
+     * @param person the person
      */
     void updateUser(User person);
 
@@ -36,19 +37,26 @@ public interface UserService {
      * @param id the id
      * @return the person by id
      */
-    User getUserById(int id);
+    User getUserById(long id);
 
     /**
      * Removes the person.
      *
      * @param id the id
      */
-    void removeUser(int id);
+    void removeUserById(long id);
+
+    /**
+     * Removes the person.
+     *
+     * @param user the user
+     */
+    void removeUser(User user);
 
     /**
      * Gets the users by address.
      *
-     * @param idList the id list
+     * @param address the address
      * @return the people by address
      */
     List<User> getUsersByAddress(String address);
@@ -56,7 +64,6 @@ public interface UserService {
     /**
      * Gets the users by with ownership.
      *
-     * @param idList the id list
      * @return the people by with ownership
      */
     List<User> getUsersByOwnership();
@@ -64,7 +71,6 @@ public interface UserService {
     /**
      * Gets the users by without ownership.
      *
-     * @param idList the id list
      * @return the people by without ownership
      */
     List<User> getUsersByWithOutOwnership();
@@ -135,4 +141,58 @@ public interface UserService {
 	 * @return the user by user name (email)
 	 */
 	User getUserByUserName(String email);
+
+	/**
+	 * Valid the password.
+	 *
+	 * @param user the user
+	 * @param password the password
+	 * @return true, if password matches, otherwise false
+	 */
+	boolean validPassword(User user, String password);
+
+	/**
+	 * Find user by email.
+	 *
+	 * @param email the email
+	 * @return the user
+	 */
+	User findUserByEmail(String email);
+
+	/**
+	 * Save user.
+	 *
+	 * @param user the user
+	 */
+	void saveUser(User user);
+
+	/**
+	 * Save.
+	 *
+	 * @param user the user
+	 * @return the user
+	 */
+	User save(User user);
+
+	/**
+	 * Delete.
+	 *
+	 * @param user the user
+	 */
+	void delete(User user);
+
+	/**
+	 * Find one.
+	 *
+	 * @param id the id
+	 * @return the user
+	 */
+	User findOne(long id);
+
+	/**
+	 * Find all.
+	 *
+	 * @return the iterable
+	 */
+	Iterable<User> findAll();
 }

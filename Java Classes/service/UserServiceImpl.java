@@ -1,16 +1,21 @@
 package com.ebanks.springapp.service;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ebanks.springapp.dao.UserDAO;
+import com.ebanks.springapp.model.Role;
 import com.ebanks.springapp.model.User;
-import com.hazelcast.core.HazelcastInstance;
+import com.ebanks.springapp.repositories.RoleRepository;
+import com.ebanks.springapp.repositories.UserRepository;
 
 /**
  * The Class UserServiceImpl. The class is the service layer for the User Controller.
@@ -21,23 +26,37 @@ public class UserServiceImpl implements UserService {
 	/** The user list. */
 	private final Map<String, User> userList = null;
 
+	/** The user repository. */
+	@Autowired
+	private UserRepository userRepository;
+
 	/** The user DAO. */
 	@Autowired
 	private UserDAO userDAO;
 
-	/** The Hazelcast instance. */
+	/** The role repository. */
 	@Autowired
-	private HazelcastInstance hazelcastInstance;
+    private RoleRepository roleRepository;
 
+    /** The b crypt password encoder. */
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	/**
+	 *  The Hazelcast instance.
+	 *
+	 * @param userDAO the new user DAO
+	 * @Autowired 	private HazelcastInstance hazelcastInstance;
+	 */
     /**
      * Instantiates a new user service impl.
      *
      * @param hazelcastInstance the Hazelcast instance
-     */
+
     @Autowired
     public UserServiceImpl(HazelcastInstance hazelcastInstance) {
         this.hazelcastInstance = hazelcastInstance;
-    }
+    }     */
 
 	/**
 	 * Sets the person DAO.
@@ -55,11 +74,12 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public List<User> listUsers() {
 		//Storing userlist in Hazel in-memory cache under a Map
-		//List<User> userList = this.userDAO.listUsers();
-		Map<String, List<User>> userHazelCastMap = hazelcastInstance.getMap("userMap");
-		userHazelCastMap.put("userList", this.userDAO.listUsers());
+		List<User> userList = this.userDAO.listUsers();
+		//Map<String, List<User>> userHazelCastMap = hazelcastInstance.getMap("userMap");
+		//userHazelCastMap.put("userList", this.userDAO.listUsers());
 
-		return userHazelCastMap.get("userList");
+		//return userHazelCastMap.get("userList");
+		return userList;
 	}
 
 	/**
@@ -72,9 +92,12 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void addUser(final User user) {
 		// Adding user to Hazelcast. Each UserId will be unique so this will be the key for the Map.
-		Map<Integer, User> userHazelCastMap = hazelcastInstance.getMap("userMap");
-		userHazelCastMap.put(user.getId(), user);
-
+		//Map<Integer, User> userHazelCastMap = hazelcastInstance.getMap("userMap");
+		//userHazelCastMap.put(user.getId(), user);
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(true);
+        Role userRole = roleRepository.findByRole("ROLE_ADMIN");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		this.userDAO.addUser(user);
 	}
 
@@ -91,7 +114,9 @@ public class UserServiceImpl implements UserService {
 		if (checkIfUserExists(user)) {
 			throw new Exception("User is already found");
 		}
-		user.setRoles(Arrays.asList("ROLE_USER"));
+
+        Role userRole = roleRepository.findByRole("ADMIN");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 
 		userDAO.addUser(user);
 
@@ -136,8 +161,20 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@Transactional
-	public void removeUser(final int id) {
-		this.userDAO.removeUser(id);
+	public void removeUserById(final long id) {
+		this.userDAO.removeUserById(id);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param id
+	 *            the id
+	 */
+	@Override
+	@Transactional
+	public void removeUser(final User user) {
+		this.userDAO.removeUser(user);
 	}
 
 	/**
@@ -145,7 +182,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@Transactional
-	public User getUserById(final int id) {
+	public User getUserById(final long id) {
 		return this.userDAO.getUserById(id);
 	}
 
@@ -263,4 +300,80 @@ public class UserServiceImpl implements UserService {
 	public final User getUserByUserName(final String email) {
 		return this.userDAO.getUserByUserName(email);
 	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param user the user
+	 * @param password the password
+	 */
+	@Override
+	public final boolean validPassword(final User user, final String password) {
+
+		boolean passwordMatch = false;
+
+		//Checks if the user's password matches the password from parameter.
+		if(user != null && StringUtils.isNotBlank(user.getPassword())
+				&& user.getPassword().equals(password)) {
+			passwordMatch = true;
+		}
+
+		return passwordMatch;
+	}
+
+	// Spring Data User Repository methods
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void saveUser(User user) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(true);
+        Role userRole = roleRepository.findByRole("ADMIN");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+		userRepository.save(user);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+    public void delete(User user) {
+    	userRepository.delete(user);
+    }
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+    public User findOne(long id) {
+        return userRepository.findOne(id);
+    }
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public User findUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
+
+	/*(
+	 * {@inheritDoc}
+	 */
+	@Override
+    public Iterable<User> findAll() {
+        return userRepository.findAll();
+    }
+
 }

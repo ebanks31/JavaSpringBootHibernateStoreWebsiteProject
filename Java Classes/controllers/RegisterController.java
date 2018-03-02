@@ -3,6 +3,7 @@ package com.ebanks.springapp.controllers;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,7 @@ public class RegisterController {
 	private static final String REGISTRATION = "registration";
 
 	/** The user service. */
+	@Autowired
 	private UserService userService;
 
 	/**
@@ -58,21 +60,59 @@ public class RegisterController {
 	 * @param errors the errors
 	 * @return the model and view
 	 */
-	@PostMapping(value = "/user/registration")
-	public ModelAndView registerUserAccount(@ModelAttribute("user") @Valid User user, BindingResult result,
-			WebRequest request, Errors errors) {
+	@PostMapping(value = "/registration")
+	public ModelAndView registerUserAccount(@Valid User user, BindingResult bindingResult) {
+/*
+		if (!bindingResult.hasErrors()) {
+			createUserAccount(user, bindingResult);
+			REGISTER_CONTROLLER_LOGGER.info("User has entered registration page1");
 
-		if (!result.hasErrors()) {
-			createUserAccount(user, result);
 		}
+		REGISTER_CONTROLLER_LOGGER.info("User has entered registration page2");
 
-		if (result.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			return new ModelAndView(REGISTRATION, "user", user);
 		} else {
 			return new ModelAndView("home", "user", user);
+		}*/
+		REGISTER_CONTROLLER_LOGGER.info("User has entered registration page");
+
+		REGISTER_CONTROLLER_LOGGER.info("user: " + user);
+if(user == null) {
+	REGISTER_CONTROLLER_LOGGER.info("user is null");
+}
+
+		ModelAndView modelAndView = new ModelAndView();
+		User userExists = userService.findUserByEmail(user.getEmail());
+		if (userExists != null) {
+			bindingResult
+					.rejectValue("email", "error.user",
+							"There is already a user registered with the email provided");
 		}
+		if (bindingResult.hasErrors()) {
+			REGISTER_CONTROLLER_LOGGER.info("user has errors");
+			REGISTER_CONTROLLER_LOGGER.info("user has errors" + bindingResult.getFieldErrors());
+
+			modelAndView.setViewName(REGISTRATION);
+		} else {
+			REGISTER_CONTROLLER_LOGGER.info("user does not errors");
+			createUserAccount(user, bindingResult);
+			modelAndView.addObject("successMessage", "User has been registered successfully");
+			modelAndView.addObject("user", new User());
+			modelAndView.setViewName(REGISTRATION);
+
+		}
+		return modelAndView;
 	}
 
+	@RequestMapping(value="/registration", method = RequestMethod.GET)
+	public ModelAndView registration(){
+		ModelAndView modelAndView = new ModelAndView();
+		User user = new User();
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName(REGISTRATION);
+		return modelAndView;
+	}
 	/**
 	 * Creates the user account.
 	 *

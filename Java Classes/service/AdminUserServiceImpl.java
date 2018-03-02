@@ -1,6 +1,7 @@
 package com.ebanks.springapp.service;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ebanks.springapp.dao.UserDAO;
+import com.ebanks.springapp.model.Role;
 import com.ebanks.springapp.model.User;
-import com.hazelcast.core.HazelcastInstance;
+import com.ebanks.springapp.repositories.RoleRepository;
 
 /**
  * The Class PersonServiceImpl.
@@ -25,20 +27,24 @@ public class AdminUserServiceImpl implements AdminUserService {
 	@Autowired
 	private UserDAO userDAO;
 
-	/** The Hazelcast instance. */
+	@Autowired
+    private RoleRepository roleRepository;
+
+	/** The Hazelcast instance.
 	@Autowired
 	private HazelcastInstance hazelcastInstance;
-
+*/
 	/**
 	 * Instantiates a new user service impl.
 	 *
 	 * @param hazelcastInstance
 	 *            the Hazelcast instance
-	 */
+
 	@Autowired
 	public AdminUserServiceImpl(HazelcastInstance hazelcastInstance) {
 		this.hazelcastInstance = hazelcastInstance;
 	}
+	*/
 
 	/**
 	 * Sets the person DAO.
@@ -57,11 +63,12 @@ public class AdminUserServiceImpl implements AdminUserService {
 	@Transactional
 	public List<User> listUsers() {
 		// Storing userlist in Hazel in-memory cache under a Map
-		// List<User> userList = this.userDAO.listUsers();
-		Map<String, List<User>> userHazelCastMap = hazelcastInstance.getMap("userMap");
-		userHazelCastMap.put("userList", this.userDAO.listUsers());
+		 List<User> userList = this.userDAO.listUsers();
+		//Map<String, List<User>> userHazelCastMap = hazelcastInstance.getMap("userMap");
+		//userHazelCastMap.put("userList", this.userDAO.listUsers());
 
-		return userHazelCastMap.get("userList");
+		//return userHazelCastMap.get("userList");
+		 return this.userDAO.listUsers();
 	}
 
 	/**
@@ -75,8 +82,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 	public void addUser(final User user) {
 		// Adding user to Hazelcast. Each UserId will be unique so this will be the key
 		// for the Map.
-		Map<Integer, User> userHazelCastMap = hazelcastInstance.getMap("userMap");
-		userHazelCastMap.put(user.getId(), user);
+		//Map<Integer, User> userHazelCastMap = hazelcastInstance.getMap("userMap");
+		//userHazelCastMap.put(user.getId(), user);
 
 		this.userDAO.addUser(user);
 	}
@@ -96,8 +103,9 @@ public class AdminUserServiceImpl implements AdminUserService {
 		if (checkIfUserExists(user)) {
 			throw new Exception("User is already found");
 		}
-		user.setRoles(Arrays.asList("ROLE_USER"));
 
+        Role userRole = roleRepository.findByRole("ADMIN");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		userDAO.addUser(user);
 
 	}
@@ -142,8 +150,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 	 */
 	@Override
 	@Transactional
-	public void removeUser(final int id) {
-		this.userDAO.removeUser(id);
+	public void removeUserById(final long id) {
+		this.userDAO.removeUserById(id);
 	}
 
 	/**
@@ -151,7 +159,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 	 */
 	@Override
 	@Transactional
-	public User getUserById(final int id) {
+	public User getUserById(final long id) {
 		return this.userDAO.getUserById(id);
 	}
 
@@ -268,5 +276,11 @@ public class AdminUserServiceImpl implements AdminUserService {
 	@Override
 	public final User getUserByUserName(final String email) {
 		return this.userDAO.getUserByUserName(email);
+	}
+
+	@Override
+	public void removeUser(User user) {
+		// TODO Auto-generated method stub
+
 	}
 }

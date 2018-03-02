@@ -10,6 +10,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
@@ -25,7 +26,6 @@ public class OrderDAOImpl implements OrderDAO {
 
 	private static final Logger ORDER_LOGGER = LoggerFactory.getLogger(OrderDAOImpl.class);
 
-	private SessionFactory sessionFactory;
 	private static final int LEGAL_AGE = 18;
 	private static final String FROM_ORDER_TABLE = "from Order";
 	private static final String ADDRESS = "address";
@@ -33,6 +33,9 @@ public class OrderDAOImpl implements OrderDAO {
 	private static final String LASTNAME = "lastname";
 	private static final String OWNERSHIP = "ownership";
 	private static final String NONOWNERSHIP = "non-owner";
+
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	/**
 	 * {@inheritDoc}

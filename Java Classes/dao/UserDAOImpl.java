@@ -2,6 +2,9 @@ package com.ebanks.springapp.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +14,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
@@ -25,7 +29,6 @@ public class UserDAOImpl implements UserDAO {
 
 	private static final Logger USER_LOGGER = LoggerFactory.getLogger(UserDAOImpl.class);
 
-	private SessionFactory sessionFactory;
 	private static final int LEGAL_AGE = 18;
 	private static final String FROM_USER_TABLE = "from User";
 	private static final String ADDRESS = "address";
@@ -34,14 +37,18 @@ public class UserDAOImpl implements UserDAO {
 	private static final String OWNERSHIP = "ownership";
 	private static final String NONOWNERSHIP = "non-owner";
 
+	@Autowired
+	private SessionFactory sessionFactory;
+
 	/**
 	 * Sets the session factory.
 	 *
 	 * @param sessionFactory the new session factory
 	 */
+	/*
 	public void setSessionFactory(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-	}
+	}*/
 
 	/**
 	 * {@inheritDoc}
@@ -67,6 +74,21 @@ public class UserDAOImpl implements UserDAO {
 		USER_LOGGER.info(String.format("User updated successfully, User Details = %s", user));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param id the id
+	 */
+	@Override
+	public void removeUserById(final long id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		User user = (User) session.load(User.class, new Long(id));
+
+		if (user != null) {
+			session.delete(user);
+		}
+		USER_LOGGER.info(String.format("User deleted successfully, user details = %s", user));
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -74,9 +96,8 @@ public class UserDAOImpl implements UserDAO {
 	 * @param id the id
 	 */
 	@Override
-	public void removeUser(final int id) {
+	public void removeUser(User user) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = (User) session.load(User.class, new Integer(id));
 
 		if (user != null) {
 			session.delete(user);
@@ -200,9 +221,9 @@ public class UserDAOImpl implements UserDAO {
 	 * @param id the id
 	 */
 	@Override
-	public User getUserById(final int id) {
+	public User getUserById(final long id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = (User) session.load(User.class, new Integer(id));
+		User user = (User) session.load(User.class, new Long(id));
 		USER_LOGGER.info(String.format("User loaded successfully, User details = %s", user));
 		return user;
 	}

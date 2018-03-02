@@ -9,6 +9,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
@@ -16,37 +17,19 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class MetricFilter implements Filter {
 
-    /** The metric service. */
+    @Autowired
     private MetricService metricService;
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @param config the filter config
-	 */
-    @Override
-    public void init(FilterConfig config) throws ServletException {
-        metricService = (MetricService) WebApplicationContextUtils
-         .getRequiredWebApplicationContext(config.getServletContext())
-         .getBean("metricService");
-    }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @param request the HTTP servlet request object
-	 * @param response the HTTP servlet response object
-	 */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws java.io.IOException, ServletException {
-        HttpServletRequest httpRequest = ((HttpServletRequest) request);
-        String req = httpRequest.getMethod() + " " + httpRequest.getRequestURI();
-
         chain.doFilter(request, response);
+        HttpServletRequest httpRequest = ((HttpServletRequest) request);
+        String path = httpRequest.getMethod() + " " + httpRequest.getRequestURI();
 
         int status = ((HttpServletResponse) response).getStatus();
-        metricService.increaseCount(req, status);
+        metricService.increaseActuatorCount(status);
+        metricService.increaseCount(path, status);
     }
 
 	/*
@@ -54,6 +37,12 @@ public class MetricFilter implements Filter {
 	 */
 	@Override
 	public void destroy() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void init(FilterConfig arg0) throws ServletException {
 		// TODO Auto-generated method stub
 
 	}

@@ -2,8 +2,11 @@ package com.ebanks.springapp.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ebanks.springapp.model.Role;
 import com.ebanks.springapp.model.User;
 
 /**
@@ -25,13 +29,21 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
 
+	/** The users query. */
+	@Value("${spring.queries.users-query}")
+	private String usersQuery;
+
+	/** The roles query. */
+	@Value("${spring.queries.roles-query}")
+	private String rolesQuery;
+
     /**
-     * Loads user by username(e-mail)
+     * Loads user by username(e-mail).
      *
-     * @param the email
+     * @param email the email
+     * @return the user details
      */
-    public UserDetails loadUserByUsername(String email)
-      throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
 
         User user = userService.getUserByUserName(email);
 
@@ -39,6 +51,14 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(
               "No user found with username: "+ email);
         }
+
+        boolean passwordMatch = userService.validPassword(user, email);
+
+        if (!passwordMatch) {
+            throw new UsernameNotFoundException(
+              "Password does not match "+ email);
+        }
+
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
@@ -49,7 +69,17 @@ public class MyUserDetailsService implements UserDetailsService {
           (user.getEmail(),
           user.getPassword().toLowerCase(), enabled, accountNonExpired,
           credentialsNonExpired, accountNonLocked,
-          getAuthorities(user.getRoles()));
+          getAuthorities(getStringListRoles(user.getRoles())));
+    }
+
+    /**
+     * Gets the string list roles.
+     *
+     * @param roles the roles
+     * @return the string list roles
+     */
+    private List<String> getStringListRoles(Set<Role> roles) {
+    	return roles.stream().map (i -> i.getRole()).collect (Collectors.toList());
     }
 
     /**
@@ -58,11 +88,13 @@ public class MyUserDetailsService implements UserDetailsService {
      * @param roles the roles
      * @return the authorities
      */
-    private static List<GrantedAuthority> getAuthorities (List<String> roles) {
+    private static List<GrantedAuthority> getAuthorities(List<String> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
+
         for (String role : roles) {
             authorities.add(new SimpleGrantedAuthority(role));
         }
+
         return authorities;
     }
 }

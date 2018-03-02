@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ebanks.springapp.dao.UserDAO;
 import com.ebanks.springapp.model.Role;
 import com.ebanks.springapp.model.User;
-import com.ebanks.springapps.repositories.RoleRepository;
+import com.ebanks.springapp.repositories.RoleRepository;
 
 /**
  * The Class PersonServiceImpl.

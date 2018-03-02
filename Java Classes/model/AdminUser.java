@@ -19,16 +19,11 @@ import javax.persistence.Table;
 public class AdminUser extends User {
 
     @Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="person_seq")
-    @SequenceGenerator(
-        name="person_seq",
-        sequenceName="person_seq",
-        allocationSize=20
-    )
 
     // Declaring columns of Person table for usage with Hibernate
-    private int id;
+    private long id;
     @Column(name="firstname")
     private String firstName;
     @Column(name="lastname")
@@ -63,7 +58,7 @@ public class AdminUser extends User {
 	 *
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
         return id;
     }
 
@@ -72,7 +67,7 @@ public class AdminUser extends User {
      *
      * @param id the new id
      */
-    public void setId(final int id) {
+    public void setId(final long id) {
         this.id = id;
     }
 

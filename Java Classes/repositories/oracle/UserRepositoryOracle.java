@@ -1,4 +1,4 @@
-package com.ebanks.springapps.repositories.oracle;
+package com.ebanks.springapp.repositories.oracle;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
