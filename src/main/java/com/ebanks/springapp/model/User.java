@@ -1,19 +1,19 @@
 package com.ebanks.springapp.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.ebanks.springapp.validators.PasswordMatches;
-//import com.ebanks.springapp.validators.ValidEmail;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Entity bean with JPA annotations for User table. Hibernate provides JPA
@@ -23,19 +23,15 @@ import com.ebanks.springapp.validators.PasswordMatches;
  *
  */
 @Entity
-@PasswordMatches
-@Table(name = "USER")
+//@PasswordMatches
+@Table(name = "USERS")
 public class User {
 
 	/** The id. */
-	// Auto increment ID when a user is added.
 	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_seq")
-	@SequenceGenerator(name = "person_seq", sequenceName = "person_seq", allocationSize = 20)
-
-	// Declaring columns of User table for usage with Hibernate
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "user_id")
+	private long id;
 
 	/** The first name. */
 	@Column(name = "firstname")
@@ -64,19 +60,20 @@ public class User {
 	private String ownership;
 
 	/** The username. */
-	@NotNull
-	@NotEmpty
+	//@NotNull
+	//@NotEmpty
 	// @ValidEmail
 	private String username;
 
 	/** The password. */
 	@NotNull
-	@NotEmpty
+	//@NotEmpty
 	private String password;
 
 	/** The matching password. */
-	@NotNull
-	@NotEmpty
+	//@NotNull
+	//@NotEmpty
+	@JsonIgnore
 	private String matchingPassword;
 
 	/** The boolean indicating whether a user is active. */
@@ -86,27 +83,28 @@ public class User {
 	/** The display name. */
 	private String displayName;
 
-	/*
-	 * The roles of the user (ROLE_USER, ROLE_ADMIN)
-	 */
-	private List<String> roles;
+
+	/** The roles. */
+	@ManyToMany//(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JsonIgnore
+	private Set<Role> roles;
 
 	/**
 	 * Gets the roles.
 	 *
 	 * @return the roles
 	 */
-	public List<String> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
 	/**
 	 * Sets the roles.
 	 *
-	 * @param list
-	 *            the new roles
+	 * @param roles the new roles
 	 */
-	public void setRoles(List<String> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
@@ -229,17 +227,16 @@ public class User {
 	 *
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	/**
 	 * Sets the id.
 	 *
-	 * @param id
-	 *            the new id
+	 * @param user_id the new id
 	 */
-	public void setId(final int id) {
+	public void setId(final long id) {
 		this.id = id;
 	}
 
@@ -364,6 +361,6 @@ public class User {
 	 */
 	@Override
 	public String toString() {
-		return "id=" + id + ", name=" + firstName + " " + lastName + " age = " + age;
+		return "id=" + id + ", firstname=" + firstName + " lastname=" + lastName + " age = " + age;
 	}
 }

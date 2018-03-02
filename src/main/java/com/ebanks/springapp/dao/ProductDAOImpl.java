@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ebanks.springapp.model.Product;
@@ -21,7 +22,6 @@ public class ProductDAOImpl implements ProductDAO {
 
 	private static final Logger PRODUCT_LOGGER = LoggerFactory.getLogger(ProductDAOImpl.class);
 
-	private SessionFactory sessionFactory;
 	private static final int LEGAL_AGE = 18;
 	private static final String FROM_PRODUCT_TABLE = "from Product";
 	private static final String PRODUCT_ID = "id";
@@ -30,14 +30,17 @@ public class ProductDAOImpl implements ProductDAO {
 	private static final String OWNERSHIP = "ownership";
 	private static final String NONOWNERSHIP = "non-owner";
 
+	@Autowired
+	private SessionFactory sessionFactory;
+
 	/**
 	 * Sets the session factory.
 	 *
 	 * @param sessionFactory the new session factory
-	 */
+
 	public void setSessionFactory(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-	}
+	}(/
 
 	/**
 	 * {@inheritDoc}

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ebanks.springapp.model.Cart;
 
-// TODO: Auto-generated Javadoc
 /**
  * The HomeController for handling REST request from the home page.
  */
@@ -72,7 +71,7 @@ public class CartController {
 	 *            the model
 	 * @return the page view
 	 */
-	@GetMapping(value = "/orders/remove/{id}")
+	@GetMapping(value = "/cart/remove/{id}")
 	public String removeCart(@PathVariable("id") final int id) {
 		CART_CONTROLLER_LOGGER.info("Removing order");
 
@@ -86,7 +85,7 @@ public class CartController {
 	 *            the model
 	 * @return the page view
 	 */
-	@GetMapping(value = "/orders/edit/{id}")
+	@GetMapping(value = "/cart/edit/{id}")
 	public String editOrder(@PathVariable("id") final int id, final Model model) {
 		CART_CONTROLLER_LOGGER.info("Editing order");
 

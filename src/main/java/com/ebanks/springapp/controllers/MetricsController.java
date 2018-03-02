@@ -33,4 +33,9 @@ public class MetricsController {
 	    return metricService.getFullMetric();
 	}
 
+	@RequestMapping(value = "/metric-graph-data", method = RequestMethod.GET)
+	@ResponseBody
+	public Object[][] getMetricData() {
+	    return metricService.getGraphData();
+	}
 }

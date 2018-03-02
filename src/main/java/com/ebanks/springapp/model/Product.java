@@ -21,14 +21,8 @@ public class Product {
 
     /** The id. */
     @Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="person_seq")
-    @SequenceGenerator(
-        name="person_seq",
-        sequenceName="person_seq",
-        allocationSize=20
-    )
-
     // Declaring columns of Person table for usage with Hibernate
     private int id;
 

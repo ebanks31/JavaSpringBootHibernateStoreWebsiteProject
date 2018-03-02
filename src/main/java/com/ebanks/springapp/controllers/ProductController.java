@@ -27,20 +27,20 @@ public class ProductController {
 	private static final String PRODUCT = "products";
 	private static final String LIST_PRODUCTS_MODEL = "listProducts";
 
-	/** The user service. */
+	/** The product service. */
 	@Autowired
 	private ProductService productService;
 
 	/**
 	 * Sets the user service.
 	 *
-	 * @param userService the new user service
-	 */
+	 * @param productService the new product service
+
 	@Autowired(required = true)
 	@Qualifier(value = "productService")
-	public final void setUserService(final ProductService productService) {
+	public final void setProductService(final ProductService productService) {
 		this.productService = productService;
-	}
+	}	 */
 
 	/**
 	 * Retrieves a list of products.
@@ -89,7 +89,7 @@ public class ProductController {
 	 *            the id
 	 * @return the page view
 	 */
-	@GetMapping(value = "/remove/{id}")
+	@GetMapping(value = "/product/remove/{id}")
 	public String removeProduct(@PathVariable("id") final int id) {
 
 		this.productService.removeProduct(id);
@@ -105,7 +105,7 @@ public class ProductController {
 	 *            the model
 	 * @return the page view
 	 */
-	@GetMapping(value = "/edit/{id}")
+	@GetMapping(value = "/product/edit/{id}")
 	public String editPerson(@PathVariable("id") final int id, final Model model) {
 		model.addAttribute(PRODUCT,
 				this.productService.getProductById(id));

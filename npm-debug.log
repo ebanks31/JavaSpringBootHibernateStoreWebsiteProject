@@ -1,0 +1,257 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'storj' ]
+2 info using npm@2.15.0
+3 info using node@v4.4.2
+4 verbose install initial load of C:\Users\Eric\AppData\Roaming\npm\package.json
+5 verbose readDependencies loading dependencies from C:\Users\Eric\AppData\Roaming\npm\package.json
+6 silly cache add args [ 'storj', null ]
+7 verbose cache add spec storj
+8 silly cache add parsed spec Result {
+8 silly cache add   raw: 'storj',
+8 silly cache add   scope: null,
+8 silly cache add   name: 'storj',
+8 silly cache add   rawSpec: '',
+8 silly cache add   spec: 'latest',
+8 silly cache add   type: 'tag' }
+9 silly addNamed storj@latest
+10 verbose addNamed "latest" is being treated as a dist-tag for storj
+11 info addNameTag [ 'storj', 'latest' ]
+12 silly mapToRegistry name storj
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry data Result {
+15 silly mapToRegistry   raw: 'storj',
+15 silly mapToRegistry   scope: null,
+15 silly mapToRegistry   name: 'storj',
+15 silly mapToRegistry   rawSpec: '',
+15 silly mapToRegistry   spec: 'latest',
+15 silly mapToRegistry   type: 'tag' }
+16 silly mapToRegistry uri https://registry.npmjs.org/storj
+17 verbose addNameTag registry:https://registry.npmjs.org/storj not in flight; fetching
+18 verbose request uri https://registry.npmjs.org/storj
+19 verbose request no auth needed
+20 info attempt registry request try #1 at 2:18:56 AM
+21 verbose request id b38c4b3ee5fec289
+22 http request GET https://registry.npmjs.org/storj
+23 http 200 https://registry.npmjs.org/storj
+24 verbose headers { 'content-type': 'application/json; charset=UTF-8',
+24 verbose headers   server: 'UploadServer',
+24 verbose headers   'cache-control': 'max-age=300',
+24 verbose headers   'last-modified': 'Thu, 26 Oct 2017 17:25:06 GMT',
+24 verbose headers   etag: '"59f21a72-380a9"',
+24 verbose headers   'x-npm-region': 'US-East',
+24 verbose headers   'content-encoding': 'gzip',
+24 verbose headers   'content-length': '15666',
+24 verbose headers   'accept-ranges': 'bytes',
+24 verbose headers   date: 'Wed, 28 Feb 2018 07:18:55 GMT',
+24 verbose headers   via: '1.1 varnish',
+24 verbose headers   age: '0',
+24 verbose headers   connection: 'keep-alive',
+24 verbose headers   'x-served-by': 'cache-pdk17824-PDK',
+24 verbose headers   'x-cache': 'MISS',
+24 verbose headers   'x-cache-hits': '0',
+24 verbose headers   'x-timer': 'S1519802335.918018,VS0,VE154',
+24 verbose headers   vary: 'Accept-Encoding, Accept' }
+25 silly get cb [ 200,
+25 silly get   { 'content-type': 'application/json; charset=UTF-8',
+25 silly get     server: 'UploadServer',
+25 silly get     'cache-control': 'max-age=300',
+25 silly get     'last-modified': 'Thu, 26 Oct 2017 17:25:06 GMT',
+25 silly get     etag: '"59f21a72-380a9"',
+25 silly get     'x-npm-region': 'US-East',
+25 silly get     'content-encoding': 'gzip',
+25 silly get     'content-length': '15666',
+25 silly get     'accept-ranges': 'bytes',
+25 silly get     date: 'Wed, 28 Feb 2018 07:18:55 GMT',
+25 silly get     via: '1.1 varnish',
+25 silly get     age: '0',
+25 silly get     connection: 'keep-alive',
+25 silly get     'x-served-by': 'cache-pdk17824-PDK',
+25 silly get     'x-cache': 'MISS',
+25 silly get     'x-cache-hits': '0',
+25 silly get     'x-timer': 'S1519802335.918018,VS0,VE154',
+25 silly get     vary: 'Accept-Encoding, Accept' } ]
+26 verbose get saving storj to C:\Users\Eric\AppData\Roaming\npm-cache\registry.npmjs.org\storj\.cache.json
+27 verbose correctMkdir C:\Users\Eric\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+28 silly addNameTag next cb for storj with tag latest
+29 silly addNamed storj@5.0.0
+30 verbose addNamed "5.0.0" is a plain semver version for storj
+31 silly mapToRegistry name storj
+32 silly mapToRegistry using default registry
+33 silly mapToRegistry registry https://registry.npmjs.org/
+34 silly mapToRegistry data Result {
+34 silly mapToRegistry   raw: 'storj',
+34 silly mapToRegistry   scope: null,
+34 silly mapToRegistry   name: 'storj',
+34 silly mapToRegistry   rawSpec: '',
+34 silly mapToRegistry   spec: 'latest',
+34 silly mapToRegistry   type: 'tag' }
+35 silly mapToRegistry uri https://registry.npmjs.org/storj
+36 verbose addRemoteTarball https://registry.npmjs.org/storj/-/storj-5.0.0.tgz not in flight; adding
+37 verbose addRemoteTarball [ 'https://registry.npmjs.org/storj/-/storj-5.0.0.tgz',
+37 verbose addRemoteTarball   '6235795fb55c74db986d77efc74ee5e8a22b8bba' ]
+38 info retry fetch attempt 1 at 2:18:57 AM
+39 info attempt registry request try #1 at 2:18:57 AM
+40 http fetch GET https://registry.npmjs.org/storj/-/storj-5.0.0.tgz
+41 http fetch 200 https://registry.npmjs.org/storj/-/storj-5.0.0.tgz
+42 silly fetchAndShaCheck shasum 6235795fb55c74db986d77efc74ee5e8a22b8bba
+43 verbose addTmpTarball C:\Users\Eric\AppData\Local\Temp\npm-23400-1c7258ed\registry.npmjs.org\storj\-\storj-5.0.0.tgz not in flight; adding
+44 verbose addTmpTarball already have metadata; skipping unpack for storj@5.0.0
+45 verbose correctMkdir C:\Users\Eric\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+46 silly cache afterAdd storj@5.0.0
+47 verbose afterAdd C:\Users\Eric\AppData\Roaming\npm-cache\storj\5.0.0\package\package.json not in flight; writing
+48 verbose correctMkdir C:\Users\Eric\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+49 verbose afterAdd C:\Users\Eric\AppData\Roaming\npm-cache\storj\5.0.0\package\package.json written
+50 silly install resolved [ { name: 'storj',
+50 silly install resolved     version: '5.0.0',
+50 silly install resolved     description: 'Node.js library for encrypted file transfer on the Storj network.',
+50 silly install resolved     main: 'index.js',
+50 silly install resolved     scripts:
+50 silly install resolved      { test: 'mocha test/**.test.js --recursive',
+50 silly install resolved        preinstall: 'node ./download.js',
+50 silly install resolved        install: 'node-gyp rebuild' },
+50 silly install resolved     repository:
+50 silly install resolved      { type: 'git',
+50 silly install resolved        url: 'git+https://github.com/storj/node-libstorj.git' },
+50 silly install resolved     keywords: [ 'storj', 'encryption', 'storage' ],
+50 silly install resolved     author: { name: 'Storj Labs, Inc.' },
+50 silly install resolved     contributors: [ [Object], [Object], [Object] ],
+50 silly install resolved     license: 'LGPL-3.0',
+50 silly install resolved     bugs: { url: 'https://github.com/storj/node-libstorj/issues' },
+50 silly install resolved     homepage: 'https://github.com/storj/node-libstorj#readme',
+50 silly install resolved     dependencies: { bindings: '^1.2.1', nan: '^2.6.2' },
+50 silly install resolved     devDependencies:
+50 silly install resolved      { 'basic-auth': '^2.0.0',
+50 silly install resolved        'body-parser': '^1.17.2',
+50 silly install resolved        chai: '^4.0.2',
+50 silly install resolved        express: '^4.15.3',
+50 silly install resolved        mocha: '^3.4.2' },
+50 silly install resolved     libstorj:
+50 silly install resolved      { basePath: './libstorj-2.0.0-beta',
+50 silly install resolved        baseUrl: 'https://github.com/Storj/libstorj/releases/download/v2.0.0-beta',
+50 silly install resolved        releases: [Object] },
+50 silly install resolved     gitHead: 'a66adfab0c86604d6a0bd46490ee654f7b9ce06c',
+50 silly install resolved     _id: 'storj@5.0.0',
+50 silly install resolved     _npmVersion: '5.5.1',
+50 silly install resolved     _nodeVersion: '6.11.3',
+50 silly install resolved     _npmUser: { name: 'braydonfstorj', email: 'braydon@storj.io' },
+50 silly install resolved     dist:
+50 silly install resolved      { integrity: 'sha512-EFoAQShEj0GxUiRmYrMZkpXJgSjgUKCoeuofhlrg/B4+1eXjEIJbplBHg3ryXEqIWD/Ii3DcncJzCNs8j8+p+g==',
+50 silly install resolved        shasum: '6235795fb55c74db986d77efc74ee5e8a22b8bba',
+50 silly install resolved        tarball: 'https://registry.npmjs.org/storj/-/storj-5.0.0.tgz' },
+50 silly install resolved     maintainers:
+50 silly install resolved      [ [Object],
+50 silly install resolved        [Object],
+50 silly install resolved        [Object],
+50 silly install resolved        [Object],
+50 silly install resolved        [Object],
+50 silly install resolved        [Object],
+50 silly install resolved        [Object] ],
+50 silly install resolved     _npmOperationalInternal:
+50 silly install resolved      { host: 's3://npm-registry-packages',
+50 silly install resolved        tmp: 'tmp/storj-5.0.0.tgz_1509038705709_0.14596421644091606' },
+50 silly install resolved     directories: {},
+50 silly install resolved     _shasum: '6235795fb55c74db986d77efc74ee5e8a22b8bba',
+50 silly install resolved     _resolved: 'https://registry.npmjs.org/storj/-/storj-5.0.0.tgz',
+50 silly install resolved     _from: 'storj@latest' } ]
+51 info install storj@5.0.0 into C:\Users\Eric\AppData\Roaming\npm
+52 info installOne storj@5.0.0
+53 verbose installOne of storj to C:\Users\Eric\AppData\Roaming\npm not in flight; installing
+54 verbose correctMkdir C:\Users\Eric\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+55 verbose lock using C:\Users\Eric\AppData\Roaming\npm-cache\_locks\storj-47ebda9b5cdc6e57.lock for C:\Users\Eric\AppData\Roaming\npm\node_modules\storj
+56 silly install write writing storj 5.0.0 to C:\Users\Eric\AppData\Roaming\npm\node_modules\storj
+57 verbose unbuild node_modules\storj
+58 silly gentlyRm C:\Users\Eric\AppData\Roaming\npm\node_modules\storj is being purged from base C:\Users\Eric\AppData\Roaming\npm
+59 verbose gentlyRm don't care about contents; nuking C:\Users\Eric\AppData\Roaming\npm\node_modules\storj
+60 verbose tar unpack C:\Users\Eric\AppData\Roaming\npm-cache\storj\5.0.0\package.tgz
+61 verbose tar unpacking to C:\Users\Eric\AppData\Roaming\npm\node_modules\storj
+62 silly gentlyRm C:\Users\Eric\AppData\Roaming\npm\node_modules\storj is being purged
+63 verbose gentlyRm don't care about contents; nuking C:\Users\Eric\AppData\Roaming\npm\node_modules\storj
+64 silly gunzTarPerm modes [ '777', '666' ]
+65 silly gunzTarPerm extractEntry package.json
+66 silly gunzTarPerm modified mode [ 'package.json', 436, 438 ]
+67 silly gunzTarPerm extractEntry .tern-port
+68 silly gunzTarPerm modified mode [ '.tern-port', 436, 438 ]
+69 silly gunzTarPerm extractEntry .travis.sh
+70 silly gunzTarPerm modified mode [ '.travis.sh', 509, 511 ]
+71 silly gunzTarPerm extractEntry .travis.yml
+72 silly gunzTarPerm modified mode [ '.travis.yml', 436, 438 ]
+73 silly gunzTarPerm extractEntry binding.cc
+74 silly gunzTarPerm modified mode [ 'binding.cc', 436, 438 ]
+75 silly gunzTarPerm extractEntry binding.gyp
+76 silly gunzTarPerm modified mode [ 'binding.gyp', 436, 438 ]
+77 silly gunzTarPerm extractEntry binding.js
+78 silly gunzTarPerm modified mode [ 'binding.js', 436, 438 ]
+79 silly gunzTarPerm extractEntry download.js
+80 silly gunzTarPerm modified mode [ 'download.js', 436, 438 ]
+81 silly gunzTarPerm extractEntry index.js
+82 silly gunzTarPerm modified mode [ 'index.js', 436, 438 ]
+83 silly gunzTarPerm extractEntry LICENSE
+84 silly gunzTarPerm modified mode [ 'LICENSE', 436, 438 ]
+85 silly gunzTarPerm extractEntry README.md
+86 silly gunzTarPerm modified mode [ 'README.md', 436, 438 ]
+87 silly gunzTarPerm extractEntry examples/create-bucket.js
+88 silly gunzTarPerm modified mode [ 'examples/create-bucket.js', 436, 438 ]
+89 silly gunzTarPerm extractEntry examples/list-buckets.js
+90 silly gunzTarPerm modified mode [ 'examples/list-buckets.js', 436, 438 ]
+91 silly gunzTarPerm extractEntry examples/upload-download-file.js
+92 silly gunzTarPerm modified mode [ 'examples/upload-download-file.js', 436, 438 ]
+93 silly gunzTarPerm extractEntry test/index.test.js
+94 silly gunzTarPerm modified mode [ 'test/index.test.js', 436, 438 ]
+95 silly gunzTarPerm extractEntry test/mockbridge.js
+96 silly gunzTarPerm modified mode [ 'test/mockbridge.js', 436, 438 ]
+97 silly gunzTarPerm extractEntry test/mockbridge.json
+98 silly gunzTarPerm modified mode [ 'test/mockbridge.json', 436, 438 ]
+99 silly gunzTarPerm extractEntry test/mockbridgeinfo.json
+100 silly gunzTarPerm modified mode [ 'test/mockbridgeinfo.json', 436, 438 ]
+101 silly gunzTarPerm extractEntry test/mockfarmer.js
+102 silly gunzTarPerm modified mode [ 'test/mockfarmer.js', 436, 438 ]
+103 verbose write writing to C:\Users\Eric\AppData\Roaming\npm\node_modules\storj\package.json
+104 info preinstall storj@5.0.0
+105 verbose unsafe-perm in lifecycle true
+106 info storj@5.0.0 Failed to exec preinstall script
+107 verbose unlock done using C:\Users\Eric\AppData\Roaming\npm-cache\_locks\storj-47ebda9b5cdc6e57.lock for C:\Users\Eric\AppData\Roaming\npm\node_modules\storj
+108 verbose stack Error: storj@5.0.0 preinstall: `node ./download.js`
+108 verbose stack Exit status 1
+108 verbose stack     at EventEmitter.<anonymous> (C:\Program Files (x86)\nodejs\node_modules\npm\lib\utils\lifecycle.js:217:16)
+108 verbose stack     at emitTwo (events.js:87:13)
+108 verbose stack     at EventEmitter.emit (events.js:172:7)
+108 verbose stack     at ChildProcess.<anonymous> (C:\Program Files (x86)\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
+108 verbose stack     at emitTwo (events.js:87:13)
+108 verbose stack     at ChildProcess.emit (events.js:172:7)
+108 verbose stack     at maybeClose (internal/child_process.js:827:16)
+108 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+109 verbose pkgid storj@5.0.0
+110 verbose cwd C:\Users\Eric\eclipse-workspace\SpringBootMVCHibernate
+111 error Windows_NT 10.0.16299
+112 error argv "C:\\Program Files (x86)\\nodejs\\node.exe" "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "storj"
+113 error node v4.4.2
+114 error npm  v2.15.0
+115 error code ELIFECYCLE
+116 error storj@5.0.0 preinstall: `node ./download.js`
+116 error Exit status 1
+117 error Failed at the storj@5.0.0 preinstall script 'node ./download.js'.
+117 error This is most likely a problem with the storj package,
+117 error not with npm itself.
+117 error Tell the author that this fails on your system:
+117 error     node ./download.js
+117 error You can get information on how to open an issue for this project with:
+117 error     npm bugs storj
+117 error Or if that isn't available, you can get their info via:
+117 error
+117 error     npm owner ls storj
+117 error There is likely additional logging output above.
+118 verbose exit [ 1, true ]
+119 verbose unbuild node_modules\storj
+120 info preuninstall storj@5.0.0
+121 info uninstall storj@5.0.0
+122 verbose unbuild rmStuff storj@5.0.0 from C:\Users\Eric\AppData\Roaming\npm\node_modules
+123 info postuninstall storj@5.0.0
+124 silly gentlyRm C:\Users\Eric\AppData\Roaming\npm\node_modules\storj is being purged from base C:\Users\Eric\AppData\Roaming\npm
+125 verbose gentlyRm don't care about contents; nuking C:\Users\Eric\AppData\Roaming\npm\node_modules\storj
+126 silly vacuum-fs purging C:\Users\Eric\AppData\Roaming\npm\node_modules\storj
+127 silly vacuum-fs quitting because other entries in C:\Users\Eric\AppData\Roaming\npm\node_modules

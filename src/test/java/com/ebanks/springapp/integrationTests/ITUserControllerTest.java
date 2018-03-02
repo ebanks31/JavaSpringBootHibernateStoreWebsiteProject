@@ -21,11 +21,15 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -33,6 +37,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.ebanks.springapp.SpringBootMvcHibernateApplication;
 import com.ebanks.springapp.model.User;
 
 /**
@@ -44,9 +49,14 @@ import com.ebanks.springapp.model.User;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration("classpath:servlet-context.xml")
-public class ITUserControllerTest {
+@SpringBootTest(
+  webEnvironment = WebEnvironment.RANDOM_PORT,
+  classes = SpringBootMvcHibernateApplication.class)
+@AutoConfigureMockMvc
+@TestPropertySource(
+  locations = "classpath:application-test.properties")
+//@ContextConfiguration("classpath:servlet-context.xml")
+public class ITUserControllerTest extends BaseIntegrationTest {
 	final static Logger logger = Logger.getLogger(ITUserControllerTest.class);
 
 	private static final String DBSCRIPT = "localDBScriptInsert.sql";
@@ -56,6 +66,7 @@ public class ITUserControllerTest {
 
 	private MockMvc mockMvc;
 
+	/*
 	@Value("${jdbc.driverClassName}")
 	private String jdbcClassName;
 
@@ -66,11 +77,12 @@ public class ITUserControllerTest {
 	private String password;
 
 	@Value("${jdbc.url}")
-	private String jdbcURL;
+	private String jdbcURL;*/
 
 	@Before
 	public void setup() throws SQLException {
 		MockitoAnnotations.initMocks(this);
+		/*
 		Connection connection = null;
 
 		try {
@@ -84,7 +96,7 @@ public class ITUserControllerTest {
 			 * driverManagerDatasource.setUrl(JDBC_URL);
 			 * driverManagerDatasource.setUsername(JDBC_USERNAME);
 			 * driverManagerDatasource.setPassword(JDBC_PASSWORD);
-			 */
+
 			driverManagerDataSource.setDriverClassName(jdbcClassName);
 			driverManagerDataSource.setUrl(jdbcURL);
 			driverManagerDataSource.setUsername(username);
@@ -99,7 +111,7 @@ public class ITUserControllerTest {
 			if (connection != null) {
 				connection.close();
 			}
-		}
+		}*/
 
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
@@ -108,7 +120,8 @@ public class ITUserControllerTest {
 	public void testListUsers() throws Exception {
 		this.mockMvc.perform(get("/users").accept(MediaType.TEXT_PLAIN))
 				.andExpect(MockMvcResultMatchers.view().name("user"))
-				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp")).andExpect(status().isOk())
+				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp"))
+				.andExpect(status().isOk())
 				.andExpect(content().string("")).andExpect(model().attribute("listUsers", hasSize(3)))
 				.andExpect(model().attribute("listUsers",
 						hasItem(allOf(hasProperty("id", is(21)), hasProperty("firstName", is("Eroc")),

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.ebanks.springapp.model.User;
 
-// TODO: Auto-generated Javadoc
 /**
  * The interface class for the UserDAO.
  */
@@ -34,18 +33,24 @@ public interface UserDAO {
     /**
      * Gets a person by id.
      *
-     * @param id the id
+     * @param l the id
      * @return the user by id
      */
-    User getUserById(int id);
+    User getUserById(long l);
 
     /**
      * Removes a user.
      *
      * @param id the id
      */
-    void removeUser(int id);
+    void removeUserById(long id);
 
+	/**
+	 * Removes the user.
+	 *
+	 * @param user the user
+	 */
+	void removeUser(User user);
 
     /**
      * Gets users by address.
@@ -137,6 +142,4 @@ public interface UserDAO {
 	 * @return the user by user name (email)
 	 */
 	User getUserByUserName(String email);
-
-
 }

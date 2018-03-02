@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.ebanks.springapp.model.Order;
 
-
 /**
  * The Interface PersonService.
  */

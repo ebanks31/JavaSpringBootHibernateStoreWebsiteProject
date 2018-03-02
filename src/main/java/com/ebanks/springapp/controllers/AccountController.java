@@ -31,7 +31,7 @@ public class AccountController {
 	 * @return the page view
 	 */
 	@GetMapping(value = "/account")
-	public String home(final Model model) {
+	public String getAccount(final Model model) {
 		ACCOUNT_CONTROLLER_LOGGER.info("Going to the account page");
 
 		return ACCOUNT;
