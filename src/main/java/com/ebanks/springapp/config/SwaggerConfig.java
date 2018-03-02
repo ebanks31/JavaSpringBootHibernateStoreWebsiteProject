@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     /**
-     * Creates the Swagger API.
+     * Creates the Swagger API configurations.
      *
      * @return the docket
      */

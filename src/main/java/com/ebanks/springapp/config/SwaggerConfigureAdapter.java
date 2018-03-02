@@ -11,8 +11,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class SwaggerConfigureAdapter extends WebMvcConfigurerAdapter {
 
-	 /*
+	 /**
 	 * {@inheritDoc}
+	 *
+	 * @param the view controller registry
 	 */
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
@@ -22,8 +24,10 @@ public class SwaggerConfigureAdapter extends WebMvcConfigurerAdapter {
 	    registry.addRedirectViewController("/api/swagger-resources", "/swagger-resources");
 	}
 
-	/*
+	/**
     * {@inheritDoc}
+    *
+    * @param the view controller registry
     */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
