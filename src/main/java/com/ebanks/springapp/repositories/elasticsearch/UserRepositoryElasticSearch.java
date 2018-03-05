@@ -11,8 +11,6 @@ public interface UserRepositoryElasticSearch extends ElasticsearchRepository<Use
 
 	    public UserEs findByEmail(String email);
 
-	    public UserEs findOne(long id);
-
 	    @Query("{\"bool\": {\"must\": [{\"match\": {\"authors.name\": \"?0\"}}]}}")
 	    public UserEs findByAuthorsNameUsingCustomQuery(String email);
 }
