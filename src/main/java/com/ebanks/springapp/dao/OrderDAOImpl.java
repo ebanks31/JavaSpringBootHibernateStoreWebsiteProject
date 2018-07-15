@@ -5,17 +5,13 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
 
 import com.ebanks.springapp.model.Order;
-import com.ebanks.springapp.model.Product;
 
 /**
  * The Class PersonDAOImpl.
@@ -46,7 +42,7 @@ public class OrderDAOImpl implements OrderDAO {
 	public void addOrder(final Order order) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(order);
-		ORDER_LOGGER.info(String.format("Order saved successfully, Order Details = %s", order));
+		ORDER_LOGGER.info("Order saved successfully, Order Details = {}", order);
 	}
 
 	/**
@@ -58,9 +54,8 @@ public class OrderDAOImpl implements OrderDAO {
 	public final void updateOrder(final Order order) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(order);
-		ORDER_LOGGER.info(String.format("Order updated successfully, Order Details = %s", order));
+		ORDER_LOGGER.info("Order updated successfully, Order Details = {}", order);
 	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -76,7 +71,7 @@ public class OrderDAOImpl implements OrderDAO {
 			session.delete(order);
 		}
 
-		ORDER_LOGGER.info(String.format("Order deleted successfully, Order details = %s", order));
+		ORDER_LOGGER.info("Order deleted successfully, Order details = {}", order);
 	}
 
 	/**
@@ -88,13 +83,12 @@ public class OrderDAOImpl implements OrderDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Order> orderList = session.createQuery(FROM_ORDER_TABLE).list();
 		for (Order order : orderList) {
-			ORDER_LOGGER.info(String.format("Order List::%s", order));
-			ORDER_LOGGER.info("product.getId: " + order.getId());
+			ORDER_LOGGER.info("Order List:: {}", order);
+			ORDER_LOGGER.info("Product.getId: {}", order.getId());
 		}
 
 		return orderList;
 	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -109,7 +103,7 @@ public class OrderDAOImpl implements OrderDAO {
 
 		Order order = (Order) crit.uniqueResult();
 
-		ORDER_LOGGER.info("order.getId(): " + order.getId());
+		ORDER_LOGGER.info("order.getId(): {}", order.getId());
 
 		return (Order) crit.uniqueResult();
 	}

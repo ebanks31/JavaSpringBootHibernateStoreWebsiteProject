@@ -8,12 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ebanks.springapp.model.Cart;
 import com.ebanks.springapp.model.Order;
-import com.ebanks.springapp.model.User;
 import com.ebanks.springapp.service.OrderService;
 
 /**
@@ -37,8 +33,7 @@ public class OrderController {
 	/**
 	 * Shows the user's order page.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/orders")
@@ -51,8 +46,7 @@ public class OrderController {
 	/**
 	 * Shows the user's order page.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/orders/{id}")
@@ -65,8 +59,7 @@ public class OrderController {
 	/**
 	 * Adds an order.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@PostMapping(value = "/orders/add")
@@ -79,8 +72,7 @@ public class OrderController {
 	/**
 	 * Removes an order.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/orders/remove/{id}")
@@ -93,8 +85,7 @@ public class OrderController {
 	/**
 	 * Edits an order.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/orders/edit/{id}")

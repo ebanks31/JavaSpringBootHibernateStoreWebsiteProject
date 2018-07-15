@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
+
 import com.ebanks.springapp.model.User;
 
 /**
@@ -23,7 +24,7 @@ import com.ebanks.springapp.model.User;
 @Repository
 public class AdminUserDAOImpl implements AdminUserDAO {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImpl.class);
 
 	private static final int LEGAL_AGE = 18;
 	private static final String FROM_PERSON_TABLE = "from Person";
@@ -40,11 +41,11 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 	 * Sets the session factory.
 	 *
 	 * @param sessionFactory the new session factory
-
-	public void setSessionFactory(final SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	*/
+	 * 
+	 *                       public void setSessionFactory(final SessionFactory
+	 *                       sessionFactory) { this.sessionFactory = sessionFactory;
+	 *                       }
+	 */
 
 	/**
 	 * {@inheritDoc}
@@ -55,7 +56,7 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 	public void addPerson(final User person) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(person);
-		logger.info(String.format("Person saved successfully, Person Details = %s", person));
+		LOGGER.info("Person saved successfully, Person Details = {}", person);
 	}
 
 	/**
@@ -67,7 +68,7 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 	public final void updatePerson(final User person) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(person);
-		logger.info(String.format("Person updated successfully, Person Details = %s", person));
+		LOGGER.info("Person updated successfully, Person Details = {}", person);
 	}
 
 	/**
@@ -79,14 +80,14 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> personsList = session.createQuery(FROM_PERSON_TABLE).list();
 		for (User person : personsList) {
-			logger.info(String.format("Person List::%s", person));
-			logger.info("person.getId: " + person.getId());
-			logger.info("person.getFirstName: " + person.getFirstName());
-			logger.info("person.getLastName: " + person.getLastName());
-			logger.info("person.getAge: " + person.getAge());
+			LOGGER.info("Person List: {}", person);
+			LOGGER.info("person.getId: {}", person.getId());
+			LOGGER.info("person.getFirstName: {}", person.getFirstName());
+			LOGGER.info("person.getLastName: {}", person.getLastName());
+			LOGGER.info("person.getAge: {}", person.getAge());
 		}
 
-		logger.info("personsList: " + personsList);
+		LOGGER.info("personsList: {}", personsList);
 
 		return personsList;
 	}
@@ -99,11 +100,10 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 	public List<User> listPersonsOrderbyLastNameASC() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> personsList = session.createQuery(FROM_PERSON_TABLE).list();
-		Criteria criteria = session.createCriteria(User.class)
-				.addOrder(Order.asc(LASTNAME));
+		Criteria criteria = session.createCriteria(User.class).addOrder(Order.asc(LASTNAME));
 		List<User> countList = criteria.list();
 		for (User person : personsList) {
-			logger.info(String.format("Person List:: %s", person));
+			LOGGER.info("Person List:: {}", person);
 		}
 		return countList;
 	}
@@ -116,11 +116,10 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 	public List<User> listPersonsOrderbyLastNameDESC() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> personsList = session.createQuery(FROM_PERSON_TABLE).list();
-		Criteria criteria = session.createCriteria(User.class)
-				.addOrder(Order.asc(LASTNAME));
+		Criteria criteria = session.createCriteria(User.class).addOrder(Order.desc(LASTNAME));
 		List<User> countList = criteria.list();
 		for (User person : personsList) {
-			logger.info(String.format("Person List:: %s", person));
+			LOGGER.info("Person List:: {}", person);
 		}
 		return countList;
 	}
@@ -133,14 +132,13 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 	public List<User> listPersonsAboveOrEqualToLegalAge() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> personsList = session.createQuery(FROM_PERSON_TABLE).list();
-		Criteria criteria = session.createCriteria(User.class)
-				.addOrder(Order.asc(AGE));
+		Criteria criteria = session.createCriteria(User.class).addOrder(Order.asc(AGE));
 
 		criteria.add(Restrictions.ge(AGE, LEGAL_AGE));
 
 		List<User> countList = criteria.list();
 		for (User person : personsList) {
-			logger.info(String.format("Person List:: %s", person));
+			LOGGER.info("Person List:: {}", person);
 		}
 		return countList;
 	}
@@ -158,7 +156,7 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 		criteria.add(Restrictions.lt(AGE, LEGAL_AGE));
 		List<User> countList = criteria.list();
 		for (User person : personsList) {
-			logger.info(String.format("Person List:: %s", person));
+			LOGGER.info("Person List:: {}", person);
 		}
 		return countList;
 	}
@@ -188,8 +186,8 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 	@Override
 	public User getPersonById(final int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User person = (User) session.load(User.class, new Integer(id));
-		logger.info(String.format("Person loaded successfully, Person details = %s", person));
+		User person = session.load(User.class, Integer.valueOf(id));
+		LOGGER.info("Person loaded successfully, Person details = {}", person);
 		return person;
 	}
 
@@ -201,11 +199,11 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 	@Override
 	public void removePerson(final int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User person = (User) session.load(User.class, new Integer(id));
+		User person = session.load(User.class, Integer.valueOf(id));
 		if (person != null) {
 			session.delete(person);
 		}
-		logger.info(String.format("Person deleted successfully, person details = %s", person));
+		LOGGER.info("Person deleted successfully, person details = {}", person);
 	}
 
 	/**
@@ -228,7 +226,7 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 		List<User> personsCriteriaList = criteria.list();
 
 		for (User person : personsList) {
-			logger.info(String.format("Person List:: %s", person));
+			LOGGER.info("Person List:: {}", person);
 		}
 		return personsCriteriaList;
 	}
@@ -242,12 +240,11 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> personsList = session.createQuery(FROM_PERSON_TABLE).list();
 
-		Criteria criteria = session.createCriteria(User.class)
-				.add(Restrictions.eq(OWNERSHIP, NONOWNERSHIP));
+		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq(OWNERSHIP, OWNERSHIP));
 		List<User> personsCriteriaList = criteria.list();
 
 		for (User person : personsList) {
-			logger.info(String.format("Person List:: %s", person));
+			LOGGER.info("Person List:: {}", person);
 		}
 		return personsCriteriaList;
 	}
@@ -261,12 +258,11 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> personsList = session.createQuery(FROM_PERSON_TABLE).list();
 
-		Criteria criteria = session.createCriteria(User.class)
-				.add(Restrictions.eq(OWNERSHIP, NONOWNERSHIP));
+		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq(OWNERSHIP, NONOWNERSHIP));
 		List<User> personsCriteriaList = criteria.list();
 
 		for (User person : personsList) {
-			logger.info(String.format("Person List:: %s", person));
+			LOGGER.info("Person List:: {}", person);
 		}
 		return personsCriteriaList;
 	}
@@ -284,30 +280,21 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 		// Criteria criteria = session.createCriteria(Person.class);
 
 		Criteria criteria = session.createCriteria(User.class);
-		// .createAlias("courses", "course")
-		// .createAlias("course.group", "student")
-		// .add(Restrictions.eq("course.name", "Math"))
-		// .add(Restrictions.eq("student.name", "John"));
-
-		int index = 0;
 
 		if (!CollectionUtils.isEmpty(addressList)) {
 			for (int i = 1; i < addressList.size(); i++) {
-				criteria.add(Restrictions.or(Restrictions.eq(ADDRESS, addressList.get(index)),
+				criteria.add(Restrictions.or(Restrictions.eq(ADDRESS, addressList.get(i)),
 						Restrictions.eq(ADDRESS, addressList.get(i))));
-				i++;
-				index++;
 			}
 		}
 
-		ProjectionList columns = Projections.projectionList()
-				.add(Projections.property(ADDRESS));
+		ProjectionList columns = Projections.projectionList().add(Projections.property(ADDRESS));
 		criteria.setProjection(Projections.distinct(columns));
 
 		List<Object[]> personsCriteriaList = criteria.list();
 
 		for (User person : personsList) {
-			logger.info(String.format("Person List:: %s", person));
+			LOGGER.info("Person List:: {}", person);
 		}
 
 		return personsCriteriaList;
@@ -323,14 +310,13 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 		List<User> personsList = session.createQuery(FROM_PERSON_TABLE).list();
 
 		Criteria criteria = session.createCriteria(User.class);
-		ProjectionList columns = Projections.projectionList()
-				.add(Projections.property(ADDRESS));
+		ProjectionList columns = Projections.projectionList().add(Projections.property(ADDRESS));
 		criteria.setProjection(Projections.distinct(columns));
 
 		List<User> personsCriteriaList = criteria.list();
 
 		for (User person : personsList) {
-			logger.info(String.format("Person List:: %s",person));
+			LOGGER.info("Person List:: {}", person);
 		}
 		return personsCriteriaList;
 	}
@@ -345,13 +331,12 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> personsList = session.createQuery(FROM_PERSON_TABLE).list();
 
-		Criteria criteria = session.createCriteria(User.class)
-				.add(Restrictions.eq(ADDRESS, ADDRESS));
+		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq(ADDRESS, ADDRESS));
 
 		List<User> personsCriteriaList = criteria.list();
 
 		for (User person : personsList) {
-			logger.info(String.format("Person List:: %s ", person));
+			LOGGER.info("Person List:: {} ", person);
 		}
 
 		return personsCriteriaList;

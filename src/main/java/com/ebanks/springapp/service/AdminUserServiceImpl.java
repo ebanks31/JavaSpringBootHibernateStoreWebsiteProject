@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ebanks.springapp.dao.UserDAO;
+import com.ebanks.springapp.exception.GenericException;
 import com.ebanks.springapp.model.Role;
 import com.ebanks.springapp.model.User;
 import com.ebanks.springapp.repositories.RoleRepository;
@@ -21,36 +22,33 @@ import com.ebanks.springapp.repositories.RoleRepository;
 public class AdminUserServiceImpl implements AdminUserService {
 
 	/** The user list. */
-	private final Map<String, User> userList = null;
+	private static final Map<String, User> userList = null;
 
 	/** The user DAO. */
 	@Autowired
 	private UserDAO userDAO;
 
 	@Autowired
-    private RoleRepository roleRepository;
+	private RoleRepository roleRepository;
 
-	/** The Hazelcast instance.
-	@Autowired
-	private HazelcastInstance hazelcastInstance;
-*/
+	/**
+	 * The Hazelcast instance.
+	 * 
+	 * @Autowired private HazelcastInstance hazelcastInstance;
+	 */
 	/**
 	 * Instantiates a new user service impl.
 	 *
-	 * @param hazelcastInstance
-	 *            the Hazelcast instance
-
-	@Autowired
-	public AdminUserServiceImpl(HazelcastInstance hazelcastInstance) {
-		this.hazelcastInstance = hazelcastInstance;
-	}
-	*/
+	 * @param hazelcastInstance the Hazelcast instance
+	 * 
+	 * @Autowired public AdminUserServiceImpl(HazelcastInstance hazelcastInstance) {
+	 *            this.hazelcastInstance = hazelcastInstance; }
+	 */
 
 	/**
 	 * Sets the person DAO.
 	 *
-	 * @param userDAO
-	 *            the new user DAO
+	 * @param userDAO the new user DAO
 	 */
 	public void setUserDAO(final UserDAO userDAO) {
 		this.userDAO = userDAO;
@@ -63,27 +61,27 @@ public class AdminUserServiceImpl implements AdminUserService {
 	@Transactional
 	public List<User> listUsers() {
 		// Storing userlist in Hazel in-memory cache under a Map
-		 List<User> userList = this.userDAO.listUsers();
-		//Map<String, List<User>> userHazelCastMap = hazelcastInstance.getMap("userMap");
-		//userHazelCastMap.put("userList", this.userDAO.listUsers());
+		// List<User> userList = this.userDAO.listUsers();
+		// Map<String, List<User>> userHazelCastMap =
+		// hazelcastInstance.getMap("userMap");
+		// userHazelCastMap.put("userList", this.userDAO.listUsers());
 
-		//return userHazelCastMap.get("userList");
-		 return this.userDAO.listUsers();
+		// return userHazelCastMap.get("userList");
+		return this.userDAO.listUsers();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param person
-	 *            the person
+	 * @param person the person
 	 */
 	@Override
 	@Transactional
 	public void addUser(final User user) {
 		// Adding user to Hazelcast. Each UserId will be unique so this will be the key
 		// for the Map.
-		//Map<Integer, User> userHazelCastMap = hazelcastInstance.getMap("userMap");
-		//userHazelCastMap.put(user.getId(), user);
+		// Map<Integer, User> userHazelCastMap = hazelcastInstance.getMap("userMap");
+		// userHazelCastMap.put(user.getId(), user);
 
 		this.userDAO.addUser(user);
 	}
@@ -91,21 +89,19 @@ public class AdminUserServiceImpl implements AdminUserService {
 	/**
 	 * Register user.
 	 *
-	 * @param user
-	 *            the user
-	 * @throws Exception
-	 *             the exception
+	 * @param user the user
+	 * @throws Exception the exception
 	 */
-	public void registerUser(final User user) throws Exception {
+	public void registerUser(final User user) throws GenericException {
 
 		// Checks if a user exist. Throws an exception if user is not found/
 		// TODO: New to make customer exception instead of having regular Exception
 		if (checkIfUserExists(user)) {
-			throw new Exception("User is already found");
+			throw new GenericException("User is already found");
 		}
 
-        Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+		Role userRole = roleRepository.findByRole("ADMIN");
+		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		userDAO.addUser(user);
 
 	}
@@ -113,8 +109,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 	/**
 	 * Check if user exists.
 	 *
-	 * @param user
-	 *            the user
+	 * @param user the user
 	 * @return true, if successful
 	 */
 	private boolean checkIfUserExists(final User user) {
@@ -133,8 +128,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param person
-	 *            the person
+	 * @param person the person
 	 */
 	@Override
 	@Transactional
@@ -145,8 +139,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param id
-	 *            the id
+	 * @param id the id
 	 */
 	@Override
 	@Transactional
@@ -184,8 +177,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param address
-	 *            the address
+	 * @param address the address
 	 */
 	@Override
 	@Transactional
@@ -259,8 +251,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param address
-	 *            the address
+	 * @param address the address
 	 */
 	@Override
 	public final List<User> getUsersBySpecificAddress(final String address) {
@@ -270,8 +261,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param email
-	 *            the email
+	 * @param email the email
 	 */
 	@Override
 	public final User getUserByUserName(final String email) {

@@ -1,41 +1,40 @@
 package com.ebanks.springapp.model;
 
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
- * Entity bean with JPA annotations for Order table.
- * Hibernate provides JPA implementation
+ * Entity bean with JPA annotations for Order table. Hibernate provides JPA
+ * implementation
+ * 
  * @author ebanks
  *
  */
 @Entity
-@Table(name="ORDER")
+@Table(name = "ORDER")
 public class Order {
 
-    /** The id. */
-    @Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="id")
-    // Declaring columns of Person table for usage with Hibernate
-    private int id;
+	/** The id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	// Declaring columns of Person table for usage with Hibernate
+	private int id;
 
-    /** The user id. */
-    private int userId;
+	/** The user id. */
+	private int userId;
 
-    /** The product id. */
-    private int productId;
+	/** The product id. */
+	private int productId;
 
-    /** The lastmodified. */
-    private Date lastmodified;
+	/** The lastmodified. */
+	private Date lastmodified;
 
 	/**
 	 * Gets the id.
@@ -109,12 +108,10 @@ public class Order {
 		this.lastmodified = lastmodified;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
-	public final String toString(){
-		return null;
-        //return "id=" + id+", name=" + firstName+ " " + lastName + " age = " + age;
-    }
+	public String toString() {
+		return "Order [id=" + id + ", userId=" + userId + ", productId=" + productId + ", lastmodified=" + lastmodified
+				+ "]";
+	}
+
 }

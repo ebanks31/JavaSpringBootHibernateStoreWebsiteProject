@@ -2,9 +2,6 @@ package com.ebanks.springapp.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,9 +43,9 @@ public class UserDAOImpl implements UserDAO {
 	 * @param sessionFactory the new session factory
 	 */
 	/*
-	public void setSessionFactory(final SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}*/
+	 * public void setSessionFactory(final SessionFactory sessionFactory) {
+	 * this.sessionFactory = sessionFactory; }
+	 */
 
 	/**
 	 * {@inheritDoc}
@@ -71,7 +68,7 @@ public class UserDAOImpl implements UserDAO {
 	public final void updateUser(final User user) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(user);
-		USER_LOGGER.info(String.format("User updated successfully, User Details = %s", user));
+		USER_LOGGER.info("User updated successfully, User Details = {}", user);
 	}
 
 	/**
@@ -82,12 +79,12 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void removeUserById(final long id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = (User) session.load(User.class, new Long(id));
+		User user = session.load(User.class, new Long(id));
 
 		if (user != null) {
 			session.delete(user);
 		}
-		USER_LOGGER.info(String.format("User deleted successfully, user details = %s", user));
+		USER_LOGGER.info("User deleted successfully, user details = {}", user);
 	}
 
 	/**
@@ -102,7 +99,7 @@ public class UserDAOImpl implements UserDAO {
 		if (user != null) {
 			session.delete(user);
 		}
-		USER_LOGGER.info(String.format("User deleted successfully, user details = %s", user));
+		USER_LOGGER.info("User deleted successfully, user details = {}", user);
 	}
 
 	/**
@@ -114,14 +111,14 @@ public class UserDAOImpl implements UserDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 		for (User user : usersList) {
-			USER_LOGGER.info(String.format("User List::%s", user));
-			USER_LOGGER.info("user.getId: " + user.getId());
-			USER_LOGGER.info("user.getFirstName: " + user.getFirstName());
-			USER_LOGGER.info("user.getLastName: " + user.getLastName());
-			USER_LOGGER.info("user.getAge: " + user.getAge());
+			USER_LOGGER.info("User List::{}", user);
+			USER_LOGGER.info("user.getId: {}", user.getId());
+			USER_LOGGER.info("user.getFirstName: {}", user.getFirstName());
+			USER_LOGGER.info("user.getLastName: {}", user.getLastName());
+			USER_LOGGER.info("user.getAge: {}", user.getAge());
 		}
 
-		USER_LOGGER.info("usersList: " + usersList);
+		USER_LOGGER.info("usersList: {}", usersList);
 
 		return usersList;
 	}
@@ -134,11 +131,10 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> listUsersOrderbyLastNameASC() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
-		Criteria criteria = session.createCriteria(User.class)
-				.addOrder(Order.asc(LASTNAME));
+		Criteria criteria = session.createCriteria(User.class).addOrder(Order.asc(LASTNAME));
 		List<User> countList = criteria.list();
 		for (User user : usersList) {
-			USER_LOGGER.info(String.format("User List:: %s", user));
+			USER_LOGGER.info("User List:: {}", user);
 		}
 		return countList;
 	}
@@ -151,11 +147,10 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> listUsersOrderbyLastNameDESC() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
-		Criteria criteria = session.createCriteria(User.class)
-				.addOrder(Order.asc(LASTNAME));
+		Criteria criteria = session.createCriteria(User.class).addOrder(Order.asc(LASTNAME));
 		List<User> countList = criteria.list();
 		for (User user : usersList) {
-			USER_LOGGER.info(String.format("User List:: %s", user));
+			USER_LOGGER.info("User List:: {}", user);
 		}
 		return countList;
 	}
@@ -168,14 +163,13 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> listUsersAboveOrEqualToLegalAge() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
-		Criteria criteria = session.createCriteria(User.class)
-				.addOrder(Order.asc(AGE));
+		Criteria criteria = session.createCriteria(User.class).addOrder(Order.asc(AGE));
 
 		criteria.add(Restrictions.ge(AGE, LEGAL_AGE));
 
 		List<User> countList = criteria.list();
 		for (User user : usersList) {
-			USER_LOGGER.info(String.format("User List:: %s", user));
+			USER_LOGGER.info("User List:: {}", user);
 		}
 		return countList;
 	}
@@ -193,7 +187,7 @@ public class UserDAOImpl implements UserDAO {
 		criteria.add(Restrictions.lt(AGE, LEGAL_AGE));
 		List<User> countList = criteria.list();
 		for (User user : usersList) {
-			USER_LOGGER.info(String.format("User List:: %s", user));
+			USER_LOGGER.info("User List:: {}", user);
 		}
 		return countList;
 	}
@@ -224,7 +218,7 @@ public class UserDAOImpl implements UserDAO {
 	public User getUserById(final long id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		User user = (User) session.load(User.class, new Long(id));
-		USER_LOGGER.info(String.format("User loaded successfully, User details = %s", user));
+		USER_LOGGER.info("User loaded successfully, User details = {}", user);
 		return user;
 	}
 
@@ -242,11 +236,10 @@ public class UserDAOImpl implements UserDAO {
 
 		User user = (User) crit.uniqueResult();
 
-		USER_LOGGER.info("product.getFirstName: " + user.getEmail());
+		USER_LOGGER.info("product.getFirstName: {}", user.getEmail());
 
 		return (User) crit.uniqueResult();
 	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -282,12 +275,11 @@ public class UserDAOImpl implements UserDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 
-		Criteria criteria = session.createCriteria(User.class)
-				.add(Restrictions.eq(OWNERSHIP, NONOWNERSHIP));
+		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq(OWNERSHIP, NONOWNERSHIP));
 		List<User> usersCriteriaList = criteria.list();
 
 		for (User user : usersList) {
-			USER_LOGGER.info(String.format("User List:: %s", user));
+			USER_LOGGER.info("User List:: {}", user);
 		}
 		return usersCriteriaList;
 	}
@@ -301,12 +293,11 @@ public class UserDAOImpl implements UserDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 
-		Criteria criteria = session.createCriteria(User.class)
-				.add(Restrictions.eq(OWNERSHIP, NONOWNERSHIP));
+		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq(OWNERSHIP, NONOWNERSHIP));
 		List<User> usersCriteriaList = criteria.list();
 
 		for (User user : usersList) {
-			USER_LOGGER.info(String.format("User List:: %s", user));
+			USER_LOGGER.info("User List:: {}", user);
 		}
 		return usersCriteriaList;
 	}
@@ -340,14 +331,13 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}
 
-		ProjectionList columns = Projections.projectionList()
-				.add(Projections.property(ADDRESS));
+		ProjectionList columns = Projections.projectionList().add(Projections.property(ADDRESS));
 		criteria.setProjection(Projections.distinct(columns));
 
 		List<Object[]> usersCriteriaList = criteria.list();
 
 		for (User user : usersList) {
-			USER_LOGGER.info(String.format("User List:: %s", user));
+			USER_LOGGER.info("User List:: {}", user);
 		}
 
 		return usersCriteriaList;
@@ -363,14 +353,13 @@ public class UserDAOImpl implements UserDAO {
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 
 		Criteria criteria = session.createCriteria(User.class);
-		ProjectionList columns = Projections.projectionList()
-				.add(Projections.property(ADDRESS));
+		ProjectionList columns = Projections.projectionList().add(Projections.property(ADDRESS));
 		criteria.setProjection(Projections.distinct(columns));
 
 		List<User> usersCriteriaList = criteria.list();
 
 		for (User user : usersList) {
-			USER_LOGGER.info(String.format("User List:: %s",user));
+			USER_LOGGER.info("User List:: {}", user);
 		}
 		return usersCriteriaList;
 	}
@@ -385,13 +374,12 @@ public class UserDAOImpl implements UserDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 
-		Criteria criteria = session.createCriteria(User.class)
-				.add(Restrictions.eq(ADDRESS, ADDRESS));
+		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq(ADDRESS, ADDRESS));
 
 		List<User> usersCriteriaList = criteria.list();
 
 		for (User user : usersList) {
-			USER_LOGGER.info(String.format("User List:: %s ", user));
+			USER_LOGGER.info("User List:: {}", user);
 		}
 
 		return usersCriteriaList;

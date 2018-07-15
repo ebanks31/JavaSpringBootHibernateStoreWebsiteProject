@@ -15,20 +15,32 @@ import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
+/**
+ * The Class ElasticSearchConfig.
+ */
 @Configuration
 @EnableElasticsearchRepositories(basePackages = "com.ebanks.springapp.repositories.elasticsearch")
 @ComponentScan(basePackages = {"com.ebanks.springapp.service"})
 public class ElasticSearchConfig {
 
+    /** The es host. */
     @Value("${elasticsearch.host}")
     private String esHost;
 
+    /** The es port. */
     @Value("${elasticsearch.port}")
     private int esPort;
 
+    /** The es cluster name. */
     @Value("${elasticsearch.clustername}")
     private String esClusterName;
 
+    /**
+     * Client.
+     *
+     * @return the client
+     * @throws Exception the exception
+     */
     @Bean
     public Client client() throws Exception {
 

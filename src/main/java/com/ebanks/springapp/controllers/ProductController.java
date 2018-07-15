@@ -4,15 +4,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ebanks.springapp.model.Cart;
 import com.ebanks.springapp.model.Product;
@@ -35,24 +32,22 @@ public class ProductController {
 	 * Sets the user service.
 	 *
 	 * @param productService the new product service
-
-	@Autowired(required = true)
-	@Qualifier(value = "productService")
-	public final void setProductService(final ProductService productService) {
-		this.productService = productService;
-	}	 */
+	 * 
+	 * @Autowired(required = true)
+	 * @Qualifier(value = "productService") public final void
+	 *                  setProductService(final ProductService productService) {
+	 *                  this.productService = productService; }
+	 */
 
 	/**
 	 * Retrieves a list of products.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/products")
 	public String listProducts(final Model model) {
-		model.addAttribute(LIST_PRODUCTS_MODEL,
-				productService.listProducts());
+		model.addAttribute(LIST_PRODUCTS_MODEL, productService.listProducts());
 		PRODUCT_CONTROLLER_LOGGER.info("Retrieving list of products");
 
 		PRODUCT_CONTROLLER_LOGGER.info("list product: " + this.productService.listProducts());
@@ -78,15 +73,15 @@ public class ProductController {
 			this.productService.updateProduct(product);
 		}
 
-		//return "redirect:/persons";
+		// return "redirect:/persons";
 		return "addProduct";
 
 	}
+
 	/**
 	 * Removes a person.
 	 *
-	 * @param id
-	 *            the id
+	 * @param id the id
 	 * @return the page view
 	 */
 	@GetMapping(value = "/product/remove/{id}")
@@ -99,26 +94,21 @@ public class ProductController {
 	/**
 	 * Edits a person.
 	 *
-	 * @param id
-	 *            the id
-	 * @param model
-	 *            the model
+	 * @param id    the id
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/product/edit/{id}")
 	public String editPerson(@PathVariable("id") final int id, final Model model) {
-		model.addAttribute(PRODUCT,
-				this.productService.getProductById(id));
-		model.addAttribute(LIST_PRODUCTS_MODEL,
-				this.productService.listProducts());
+		model.addAttribute(PRODUCT, this.productService.getProductById(id));
+		model.addAttribute(LIST_PRODUCTS_MODEL, this.productService.listProducts());
 		return PRODUCT;
 	}
 
 	/**
 	 * Adds a product to cart.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@PostMapping(value = "/product/cart/add")
@@ -132,8 +122,7 @@ public class ProductController {
 	/**
 	 * Adds a list of products to cart.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@PostMapping(value = "/products/cart/add")

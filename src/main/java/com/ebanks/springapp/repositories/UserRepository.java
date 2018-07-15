@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ebanks.springapp.model.User;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface UserRepository.
  */

@@ -2,10 +2,7 @@ package com.ebanks.springapp.dao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-
 import com.ebanks.springapp.model.Product;
-import com.ebanks.springapp.model.User;
 
 /**
  * The Interface PersonDAO.

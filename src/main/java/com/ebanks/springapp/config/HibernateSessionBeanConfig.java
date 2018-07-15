@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class HibernateSessionBeanConfig.
  */
@@ -26,10 +25,10 @@ public class HibernateSessionBeanConfig {
 	 */
 	@Bean
 	public SessionFactory getSessionFactory() {
-	    if (entityManagerFactory.unwrap(SessionFactory.class) == null) {
-	        throw new NullPointerException("factory is not a hibernate factory");
-	    }
-	    return entityManagerFactory.unwrap(SessionFactory.class);
+		if (entityManagerFactory.unwrap(SessionFactory.class) == null) {
+			throw new NullPointerException("factory is not a hibernate factory");
+		}
+		return entityManagerFactory.unwrap(SessionFactory.class);
 	}
 
 	/**
@@ -39,7 +38,6 @@ public class HibernateSessionBeanConfig {
 	 */
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		return bCryptPasswordEncoder;
+		return new BCryptPasswordEncoder();
 	}
 }

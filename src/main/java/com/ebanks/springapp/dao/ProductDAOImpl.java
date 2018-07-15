@@ -37,21 +37,20 @@ public class ProductDAOImpl implements ProductDAO {
 	 * Sets the session factory.
 	 *
 	 * @param sessionFactory the new session factory
-
-	public void setSessionFactory(final SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}(/
-
-	/**
-	 * {@inheritDoc}
+	 * 
+	 *                       public void setSessionFactory(final SessionFactory
+	 *                       sessionFactory) { this.sessionFactory = sessionFactory;
+	 *                       }(/
+	 * 
+	 *                       /** {@inheritDoc}
 	 *
-	 * @param person the person
+	 * @param person         the person
 	 */
 	@Override
 	public void addProduct(final Product product) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(product);
-		PRODUCT_LOGGER.info(String.format("Product saved successfully, Product Details = %s", product));
+		PRODUCT_LOGGER.info("Product saved successfully, Product Details = {}", product);
 	}
 
 	/**
@@ -63,9 +62,8 @@ public class ProductDAOImpl implements ProductDAO {
 	public final void updateProduct(final Product product) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(product);
-		PRODUCT_LOGGER.info(String.format("Product updated successfully, Product Details = %s", product));
+		PRODUCT_LOGGER.info("Product updated successfully, Product Details = {}", product);
 	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -75,13 +73,13 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public void removeProduct(final int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Product product = (Product) session.load(Product.class, new Integer(id));
+		Product product = session.load(Product.class, Integer.valueOf(id));
 
 		if (product != null) {
 			session.delete(product);
 		}
 
-		PRODUCT_LOGGER.info(String.format("Product deleted successfully, Product details = %s", product));
+		PRODUCT_LOGGER.info("Product deleted successfully, Product details = {}", product);
 	}
 
 	/**
@@ -93,18 +91,17 @@ public class ProductDAOImpl implements ProductDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Product> productList = session.createQuery(FROM_PRODUCT_TABLE).list();
 		for (Product product : productList) {
-			PRODUCT_LOGGER.info(String.format("Product List::%s", product));
-			PRODUCT_LOGGER.info("product.getId: " + product.getId());
-			PRODUCT_LOGGER.info("product.getFirstName: " + product.getName());
-			PRODUCT_LOGGER.info("product.getLastName: " + product.getBrand());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getColor());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getWeight());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getCost());
+			PRODUCT_LOGGER.info("Product List::{}", product);
+			PRODUCT_LOGGER.info("product.getId: {}", product.getId());
+			PRODUCT_LOGGER.info("product.getFirstName: {}", product.getName());
+			PRODUCT_LOGGER.info("product.getLastName: {}", product.getBrand());
+			PRODUCT_LOGGER.info("product.getColor: {}", product.getColor());
+			PRODUCT_LOGGER.info("product.getWeight: {}", product.getWeight());
+			PRODUCT_LOGGER.info("product.getCost: {}", product.getCost());
 		}
 
 		return productList;
 	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -119,7 +116,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 		Product product = (Product) crit.uniqueResult();
 
-		PRODUCT_LOGGER.info("product.getFirstName: " + product.getName());
+		PRODUCT_LOGGER.info("product.getFirstName: {}", product.getName());
 
 		return (Product) crit.uniqueResult();
 	}
@@ -137,7 +134,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 		Product product = (Product) crit.uniqueResult();
 
-		PRODUCT_LOGGER.info("product.getFirstName: " + product.getName());
+		PRODUCT_LOGGER.info("product.getFirstName: {}", product.getName());
 
 		return (Product) crit.uniqueResult();
 	}
@@ -154,13 +151,13 @@ public class ProductDAOImpl implements ProductDAO {
 		List<Product> productsByBrand = criteria.list();
 
 		for (Product product : productsByBrand) {
-			PRODUCT_LOGGER.info(String.format("Product List::%s", product));
-			PRODUCT_LOGGER.info("product.getId: " + product.getId());
-			PRODUCT_LOGGER.info("product.getFirstName: " + product.getName());
-			PRODUCT_LOGGER.info("product.getLastName: " + product.getBrand());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getColor());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getWeight());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getCost());
+			PRODUCT_LOGGER.info("Product List::{}", product);
+			PRODUCT_LOGGER.info("product.getId: {}", product.getId());
+			PRODUCT_LOGGER.info("product.getFirstName: {}", product.getName());
+			PRODUCT_LOGGER.info("product.getLastName: {}", product.getBrand());
+			PRODUCT_LOGGER.info("product.getColor: {}", product.getColor());
+			PRODUCT_LOGGER.info("product.getWeight: {}", product.getWeight());
+			PRODUCT_LOGGER.info("product.getCost: {}", product.getCost());
 		}
 
 		return productsByBrand;
@@ -178,13 +175,13 @@ public class ProductDAOImpl implements ProductDAO {
 		List<Product> productsByCost = criteria.list();
 
 		for (Product product : productsByCost) {
-			PRODUCT_LOGGER.info(String.format("Product List::%s", product));
-			PRODUCT_LOGGER.info("product.getId: " + product.getId());
-			PRODUCT_LOGGER.info("product.getFirstName: " + product.getName());
-			PRODUCT_LOGGER.info("product.getLastName: " + product.getBrand());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getColor());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getWeight());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getCost());
+			PRODUCT_LOGGER.info("Product List::{}", product);
+			PRODUCT_LOGGER.info("product.getId: {}", product.getId());
+			PRODUCT_LOGGER.info("product.getFirstName: {}", product.getName());
+			PRODUCT_LOGGER.info("product.getLastName: {}", product.getBrand());
+			PRODUCT_LOGGER.info("product.getColor: {}", product.getColor());
+			PRODUCT_LOGGER.info("product.getWeight: {}", product.getWeight());
+			PRODUCT_LOGGER.info("product.getCost: {}", product.getCost());
 		}
 
 		return productsByCost;
@@ -202,13 +199,13 @@ public class ProductDAOImpl implements ProductDAO {
 		List<Product> productsByWeight = criteria.list();
 
 		for (Product product : productsByWeight) {
-			PRODUCT_LOGGER.info(String.format("Product List::%s", product));
-			PRODUCT_LOGGER.info("product.getId: " + product.getId());
-			PRODUCT_LOGGER.info("product.getFirstName: " + product.getName());
-			PRODUCT_LOGGER.info("product.getLastName: " + product.getBrand());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getColor());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getWeight());
-			PRODUCT_LOGGER.info("product.getAge: " + product.getCost());
+			PRODUCT_LOGGER.info("Product List::{}", product);
+			PRODUCT_LOGGER.info("product.getId: {}", product.getId());
+			PRODUCT_LOGGER.info("product.getFirstName: {}", product.getName());
+			PRODUCT_LOGGER.info("product.getLastName: {}", product.getBrand());
+			PRODUCT_LOGGER.info("product.getColor: {}", product.getColor());
+			PRODUCT_LOGGER.info("product.getWeight: {}", product.getWeight());
+			PRODUCT_LOGGER.info("product.getCost: {}", product.getCost());
 		}
 
 		return productsByWeight;

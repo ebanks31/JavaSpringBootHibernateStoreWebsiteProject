@@ -4,15 +4,10 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import com.ebanks.springapp.model.Cart;
-
-// TODO: This controller still has to be done.
 /**
- * The Account Controller is for handling the REST request from the account page.
+ * The Account Controller is for handling the REST request from the account
+ * page.
  */
 @Controller
 public class AccountController {
@@ -22,12 +17,12 @@ public class AccountController {
 
 	/** The Constant CART. */
 	private static final String ACCOUNT = "account";
-	//TODO: Need to more REST End points for Account Controller.
+	// TODO: Need to more REST End points for Account Controller.
 
 	/**
 	 * Shows the user's cart.
 	 *
-	 * @param model            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/account")
