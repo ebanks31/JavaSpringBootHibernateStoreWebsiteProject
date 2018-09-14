@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.ebanks.springapp.model.Cart;
 
 /**
- * The HomeController for handling REST request from the home page.
+ * The CartController for handling REST request from the cart page.
  */
 @Controller
 public class CartController {
@@ -21,12 +21,12 @@ public class CartController {
 
 	/** The Constant CART. */
 	private static final String CART = "cart";
-	//TODO: Need to more REST End points for Cart Controller.
+	// TODO: Need to more REST End points for Cart Controller.
 
 	/**
 	 * Shows the user's cart.
 	 *
-	 * @param model            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/cart")
@@ -39,8 +39,7 @@ public class CartController {
 	/**
 	 * Shows the user's order page.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/cart/{id}")
@@ -53,8 +52,7 @@ public class CartController {
 	/**
 	 * Adds an order.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@PostMapping(value = "/cart/add")
@@ -67,8 +65,7 @@ public class CartController {
 	/**
 	 * Removes an order.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/cart/remove/{id}")
@@ -81,8 +78,7 @@ public class CartController {
 	/**
 	 * Edits an order.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/cart/edit/{id}")

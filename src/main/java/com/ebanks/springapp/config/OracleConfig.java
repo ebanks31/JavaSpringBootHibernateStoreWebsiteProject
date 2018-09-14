@@ -16,63 +16,52 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class OracleConfig.
+ * This class keeps track of the Oracle configurations
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(
-  entityManagerFactoryRef = "entityManagerFactory",
-  basePackages = { "com.ebanks.springapps.repositories.oracle" }
-)
+@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", basePackages = {
+		"com.ebanks.springapps.repositories.oracle" })
 public class OracleConfig {
 
-  /**
-   * Data source.
-   *
-   * @return the data source
-   */
-  @Primary
-  @Bean(name = "dataSource")
-  @ConfigurationProperties(prefix = "oracle.datasource")
-  public DataSource dataSource() {
-    return DataSourceBuilder.create().build();
-  }
+	/**
+	 * Data source.
+	 *
+	 * @return the data source
+	 */
+	@Primary
+	@Bean(name = "dataSource")
+	@ConfigurationProperties(prefix = "oracle.datasource")
+	public DataSource dataSource() {
+		return DataSourceBuilder.create().build();
+	}
 
-  /**
-   * Entity manager factory.
-   *
-   * @param builder the builder
-   * @param dataSource the data source
-   * @return the local container entity manager factory bean
-   */
-  @Primary
-  @Bean(name = "entityManagerFactory")
-  public LocalContainerEntityManagerFactoryBean
-  entityManagerFactory(
-    EntityManagerFactoryBuilder builder,
-    @Qualifier("dataSource") DataSource dataSource
-  ) {
-    return builder
-      .dataSource(dataSource)
-      .packages("com.ebanks.springapp.model.oracle")
-      .persistenceUnit("foo")
-      .build();
-  }
+	/**
+	 * Entity manager factory.
+	 *
+	 * @param builder    the builder
+	 * @param dataSource the data source
+	 * @return the local container entity manager factory bean
+	 */
+	@Primary
+	@Bean(name = "entityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder,
+			@Qualifier("dataSource") DataSource dataSource) {
+		return builder.dataSource(dataSource).packages("com.ebanks.springapp.model.oracle").persistenceUnit("foo")
+				.build();
+	}
 
-  /**
-   * Transaction manager.
-   *
-   * @param entityManagerFactory the entity manager factory
-   * @return the platform transaction manager
-   */
-  @Primary
-  @Bean(name = "transactionManager")
-  public PlatformTransactionManager transactionManager(
-    @Qualifier("entityManagerFactory") EntityManagerFactory
-    entityManagerFactory
-  ) {
-    return new JpaTransactionManager(entityManagerFactory);
-  }
+	/**
+	 * Transaction manager.
+	 *
+	 * @param entityManagerFactory the entity manager factory
+	 * @return the platform transaction manager
+	 */
+	@Primary
+	@Bean(name = "transactionManager")
+	public PlatformTransactionManager transactionManager(
+			@Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
+		return new JpaTransactionManager(entityManagerFactory);
+	}
 }

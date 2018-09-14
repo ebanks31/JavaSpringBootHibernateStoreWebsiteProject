@@ -66,7 +66,7 @@ public class MetricService {
 	}
 
 	/**
-	 * Increase count.
+	 * Increases the count.
 	 *
 	 * @param request the request
 	 * @param status  the status

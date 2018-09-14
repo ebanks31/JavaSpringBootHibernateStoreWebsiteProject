@@ -18,7 +18,7 @@ import com.ebanks.springapp.model.User;
 import com.ebanks.springapp.service.UserService;
 
 /**
- * The PersonController for handling REST request.
+ * The RegisterController for handling REST request for the registration page.
  */
 @Controller
 public class RegisterController {

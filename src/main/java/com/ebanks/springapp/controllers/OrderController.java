@@ -13,7 +13,7 @@ import com.ebanks.springapp.model.Order;
 import com.ebanks.springapp.service.OrderService;
 
 /**
- * The HomeController for handling REST request from the home page.
+ * The OrderController for handling REST request from the order page.
  */
 @Controller
 public class OrderController {

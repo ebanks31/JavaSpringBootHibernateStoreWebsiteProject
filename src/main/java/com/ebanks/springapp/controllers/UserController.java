@@ -4,16 +4,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ebanks.springapp.model.User;
@@ -23,14 +19,13 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-// TODO: Auto-generated Javadoc
 /**
- * The UserController for handling REST request.
+ * The UserController for handling REST request for the user page.
  */
 @RestController
 public class UserController {
 
-	/**  The Constant logger for user controller. */
+	/** The Constant logger for user controller. */
 	private static final Logger USER_CONTROLLER_LOGGER = Logger.getLogger(UserController.class);
 
 	/** The Constant PERSON. */
@@ -50,7 +45,7 @@ public class UserController {
 	/**
 	 * Instantiates a new user controller.
 	 *
-	 * @param userService the user service
+	 * @param userService           the user service
 	 * @param bCryptPasswordEncoder the b crypt password encoder
 	 */
 	@Autowired
@@ -63,19 +58,16 @@ public class UserController {
 	 * Sets the user service.
 	 *
 	 * @param userService the new user service
-
-	@Autowired(required = true)
-	@Qualifier(value = "userService")
-	public final void setUserService(final UserService userService) {
-		this.userService = userService;
-	}
+	 * 
+	 * @Autowired(required = true)
+	 * @Qualifier(value = "userService") public final void setUserService(final
+	 *                  UserService userService) { this.userService = userService; }
 	 */
 
 	/**
 	 * Retrieves a list of people.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/users")
@@ -85,8 +77,7 @@ public class UserController {
 			@ApiResponse(code = 404, message = "User is not found"),
 			@ApiResponse(code = 500, message = "Internal server error") })
 	public List<User> listUsers(Model model) {
-		model.addAttribute(LIST_USERS_MODEL,
-				userService.listUsers());
+		model.addAttribute(LIST_USERS_MODEL, userService.listUsers());
 		USER_CONTROLLER_LOGGER.info("Retrieving list of people");
 
 		USER_CONTROLLER_LOGGER.info("list person: " + this.userService.listUsers());
@@ -96,8 +87,7 @@ public class UserController {
 	/**
 	 * Retrieves a list people by last name in ascending order.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/usersByLastNameASC")
@@ -106,7 +96,7 @@ public class UserController {
 			@ApiResponse(code = 200, message = "Successful retrieval of appointments", response = User.class, responseContainer = "List"),
 			@ApiResponse(code = 404, message = "User is not found"),
 			@ApiResponse(code = 500, message = "Internal server error") })
-	public  List<User> listPersonsByLastNameASC(final Model model) {
+	public List<User> listPersonsByLastNameASC(final Model model) {
 		return userService.listUsersOrderbyLastNameASC();
 	}
 
@@ -121,28 +111,27 @@ public class UserController {
 		USER_CONTROLLER_LOGGER.info("person Id: " + user.getId());
 
 		if (user.getId() == 0) {
-			//Encrypts the user's password.
+			// Encrypts the user's password.
 			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
 			// adds new person. Person Id starts at 0 for a new Person object.
 			this.userService.addUser(user);
 		} else {
-			//Encrypts the user's password.
+			// Encrypts the user's password.
 			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
 			// Calls update method if person exists
 			this.userService.updateUser(user);
 		}
 
-		//return "redirect:/persons";
+		// return "redirect:/persons";
 		return "addPerson";
 	}
 
 	/**
 	 * Removes a person.
 	 *
-	 * @param id
-	 *            the id
+	 * @param id the id
 	 * @return the page view
 	 */
 	@GetMapping(value = "/remove/{id}")
@@ -155,92 +144,76 @@ public class UserController {
 	/**
 	 * Edits a person.
 	 *
-	 * @param id
-	 *            the id
-	 * @param model
-	 *            the model
+	 * @param id    the id
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/edit/{id}")
 	public String editPerson(@PathVariable("id") final int id, final Model model) {
-		model.addAttribute(USER,
-				this.userService.getUserById(id));
-		model.addAttribute(LIST_USERS_MODEL,
-				this.userService.listUsers());
+		model.addAttribute(USER, this.userService.getUserById(id));
+		model.addAttribute(LIST_USERS_MODEL, this.userService.listUsers());
 		return USER;
 	}
 
 	/**
 	 * Retrieves a list of people that are above the legal age (18).
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/personsAboveLegalAgeASC")
 	public String listPersonsAboveLegalAgeASC(final Model model) {
-		model.addAttribute(LIST_USERS_MODEL,
-				this.userService.listUsersAboveOrEqualToLegalAge());
+		model.addAttribute(LIST_USERS_MODEL, this.userService.listUsersAboveOrEqualToLegalAge());
 		return USER;
 	}
 
 	/**
 	 * Retrieves a list of people that are owners.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/personsWithOwnership")
 	public String listPersonsWithOwnerShip(final Model model) {
-		model.addAttribute(LIST_USERS_MODEL,
-				this.userService.getUsersByOwnership());
+		model.addAttribute(LIST_USERS_MODEL, this.userService.getUsersByOwnership());
 		return USER;
 	}
 
 	/**
 	 * List persons.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/personsWithOutOwnership")
 	public String listPersonsWithOutOwnerShip(final Model model) {
-		model.addAttribute(LIST_USERS_MODEL,
-				this.userService.getUsersByWithOutOwnership());
+		model.addAttribute(LIST_USERS_MODEL, this.userService.getUsersByWithOutOwnership());
 		return USER;
 	}
 
 	/**
 	 * Retrieves a list of people by distinct address.
 	 *
-	 * @param model
-	 *            the model
+	 * @param model the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/personsByDistinctAddress")
 	public String listPersonsByDistinctAddress(final Model model) {
 		model.addAttribute(USER, new User());
-		model.addAttribute(LIST_USERS_MODEL,
-				this.userService.getUsersByDistinctAddress());
+		model.addAttribute(LIST_USERS_MODEL, this.userService.getUsersByDistinctAddress());
 		return USER;
 	}
 
 	/**
 	 * Retrieves a list of people by a specified address.
 	 *
-	 * @param address
-	 *            the address
-	 * @param model
-	 *            the model
+	 * @param address the address
+	 * @param model   the model
 	 * @return the page view
 	 */
 	@GetMapping(value = "/personsBySpecificAddress{address}")
-	public String listPersonsBySpecificAddress(@PathVariable("address") final String address,
-			final Model model) {
-		model.addAttribute(LIST_USERS_MODEL,
-				this.userService.getUsersBySpecificAddress(address));
+	public String listPersonsBySpecificAddress(@PathVariable("address") final String address, final Model model) {
+		model.addAttribute(LIST_USERS_MODEL, this.userService.getUsersBySpecificAddress(address));
 		return USER;
 	}
 

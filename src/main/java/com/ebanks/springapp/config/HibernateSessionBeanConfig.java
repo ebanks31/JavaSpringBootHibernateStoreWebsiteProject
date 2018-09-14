@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * The Class HibernateSessionBeanConfig.
+ * This class keeps track of the Hibernate session configurations.
  */
 @Configuration
 public class HibernateSessionBeanConfig {

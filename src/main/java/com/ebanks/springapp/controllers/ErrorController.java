@@ -9,12 +9,23 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+/**
+ * The controllers handles the error responses.
+ */
 @ControllerAdvice
 @EnableWebMvc
 public class ErrorController {
 
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(ErrorController.class);
 
+	/**
+	 * Exception.
+	 *
+	 * @param throwable the throwable
+	 * @param model     the model
+	 * @return the string
+	 */
 	@ExceptionHandler(Throwable.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public String exception(final Throwable throwable, final Model model) {

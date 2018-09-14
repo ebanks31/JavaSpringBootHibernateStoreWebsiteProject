@@ -16,7 +16,7 @@ import com.ebanks.springapp.model.Product;
 import com.ebanks.springapp.service.ProductService;
 
 /**
- * The PersonController for handling REST request.
+ * The ProductController for handling REST request for the product page.
  */
 @Controller
 public class ProductController {

@@ -10,23 +10,20 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * The Class SwaggerConfig.
+ * This class keeps track of the Swagger API configurations
  */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
 
-    /**
-     * Creates the Swagger API configurations.
-     *
-     * @return the docket
-     */
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-          .select()
-          .apis(RequestHandlerSelectors.any())
-          .paths(PathSelectors.any())
-          .build();
-    }
+	/**
+	 * Creates the Swagger API configurations.
+	 *
+	 * @return the docket
+	 */
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any()).build();
+	}
 }
