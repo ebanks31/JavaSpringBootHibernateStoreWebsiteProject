@@ -1,12 +1,11 @@
 package com.ebanks.springapp.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ebanks.springapp.dao.OrderDAO;
-import com.ebanks.springapp.dao.ProductDAO;
 import com.ebanks.springapp.model.Order;
 
 /**
@@ -17,13 +16,12 @@ public class OrderServiceImpl implements OrderService {
 
 	/** The order DAO. */
 	@Autowired
-    private OrderDAO orderDAO;
+	private OrderDAO orderDAO;
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param orderId
-	 *            the orderId
+	 * @param orderId the orderId
 	 */
 	@Override
 	public Order getOrderById(int orderId) {
@@ -41,8 +39,7 @@ public class OrderServiceImpl implements OrderService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param orderId
-	 *            the orderId
+	 * @param orderId the orderId
 	 */
 	@Override
 	public void removeOrder(int orderId) {
@@ -52,8 +49,7 @@ public class OrderServiceImpl implements OrderService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param order
-	 *            the Order object
+	 * @param order the Order object
 	 */
 	@Override
 	public void updateOrder(Order order) {
@@ -63,8 +59,7 @@ public class OrderServiceImpl implements OrderService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param order
-	 *            the Order object
+	 * @param order the Order object
 	 */
 	@Override
 	public void addOrder(Order order) {

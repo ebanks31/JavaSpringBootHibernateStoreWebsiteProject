@@ -48,7 +48,7 @@ public class MySQLConfig {
 	@Bean(name = "entityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder,
 			@Qualifier("dataSource") DataSource dataSource) {
-		return builder.dataSource(dataSource).packages("com.ebanks.springapp.model").persistenceUnit("foo").build();
+		return builder.dataSource(dataSource).packages("com.ebanks.springapp.model").persistenceUnit("manager").build();
 	}
 
 	/**

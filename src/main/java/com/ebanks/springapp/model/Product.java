@@ -5,56 +5,56 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
 /**
- * Entity bean with JPA annotations for Product table.
- * Hibernate provides JPA implementation
+ * Entity bean with JPA annotations for Product table. Hibernate provides JPA
+ * implementation
+ * 
  * @author ebanks
  *
  */
 @Entity
-@Table(name="PRODUCT")
+@Table(name = "PRODUCT")
 public class Product {
 
-    /** The id. */
-    @Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="id")
-    // Declaring columns of Person table for usage with Hibernate
-    private int id;
+	/** The id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	// Declaring columns of Person table for usage with Hibernate
+	private int id;
 
-    /** The name. */
-    private String name;
+	/** The name. */
+	private String name;
 
-    /** The category. */
-    private String category;
+	/** The category. */
+	private String category;
 
-    /** The weight. */
-    private double weight;
+	/** The weight. */
+	private double weight;
 
-    /** The height. */
-    private String height;
+	/** The height. */
+	private String height;
 
-    /** The length. */
-    private String length;
+	/** The length. */
+	private String length;
 
-    /** The color. */
-    private String color;
+	/** The color. */
+	private String color;
 
-    /** The type. */
-    private String type;
+	/** The type. */
+	private String type;
 
-    /** The brand. */
-    private String brand;
+	/** The brand. */
+	private String brand;
 
-    /** The cost. */
-    private double cost;
+	/** The cost. */
+	private double cost;
 
-    /** The quantity. */
-    private long quantity;
+	/** The quantity. */
+	private long quantity;
 
 	/**
 	 * Gets the brand.
@@ -156,11 +156,11 @@ public class Product {
 	}
 
 	/**
-     * Gets the quantity.
-     *
-     * @return the quantity
-     */
-    public long getQuantity() {
+	 * Gets the quantity.
+	 *
+	 * @return the quantity
+	 */
+	public long getQuantity() {
 		return quantity;
 	}
 
@@ -242,24 +242,25 @@ public class Product {
 	 * @return the id
 	 */
 	public int getId() {
-        return id;
-    }
+		return id;
+	}
 
-    /**
-     * Sets the id.
-     *
-     * @param id the new id
-     */
-    public void setId(final int id) {
-        this.id = id;
-    }
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(final int id) {
+		this.id = id;
+	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public final String toString(){
-        return "id=" + id+", name=" + name + " brand = " + brand;
-    }
+	public final String toString() {
+		return "id=" + id + ", name=" + name + " brand = " + brand;
+	}
 }

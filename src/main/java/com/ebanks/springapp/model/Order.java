@@ -91,7 +91,7 @@ public class Order {
 	}
 
 	/**
-	 * Gets the lastmodified.
+	 * Gets the last modified.
 	 *
 	 * @return the lastmodified
 	 */
