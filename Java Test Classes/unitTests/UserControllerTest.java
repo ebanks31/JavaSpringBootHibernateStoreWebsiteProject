@@ -1,4 +1,4 @@
-package com.ebanks.springapp.unitTests;
+package com.ebanks.springapp.test.utTests;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasItem;
@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -65,12 +65,9 @@ public class UserControllerTest {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 
-/*
-	@Test
-	public void testSetUserService() throws Exception {
-		// TODO
-	}
-*/
+	/*
+	 * @Test public void testSetUserService() throws Exception { // TODO }
+	 */
 	@Test
 	public void testListUsers() throws Exception {
 		User first = new User();
@@ -88,11 +85,11 @@ public class UserControllerTest {
 		Mockito.when(userService.listUsers()).thenReturn(Arrays.asList(first, second));
 		assertEquals(userService.listUsers().size(), 2);
 		this.mockMvc.perform(get("/users"))
-				//.accept(MediaType.TEXT_PLAIN))
-				//.andExpect(MockMvcResultMatchers.view().name("user"))
-				//.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp"))
-				.andExpect(status().isOk())
-				.andExpect(content().string("")).andExpect(model().attribute("listUser", hasSize(2)))
+				// .accept(MediaType.TEXT_PLAIN))
+				// .andExpect(MockMvcResultMatchers.view().name("user"))
+				// .andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp"))
+				.andExpect(status().isOk()).andExpect(content().string(""))
+				.andExpect(model().attribute("listUser", hasSize(2)))
 				.andExpect(model().attribute("listUser",
 						hasItem(allOf(hasProperty("id", is(0)), hasProperty("firstName", is("Eroc")),
 								hasProperty("lastName", is("Banks")), hasProperty("age", is(17))))))
@@ -104,7 +101,42 @@ public class UserControllerTest {
 		verifyNoMoreInteractions(userService);
 	}
 
-/*
+	/*
+	 * @Test public void testSetUserService() throws Exception { // TODO }
+	 */
+	@Test
+	public void testListUsersNull() throws Exception {
+
+		Mockito.when(userService.listUsers()).thenReturn(null);
+		assertEquals(2, userService.listUsers().size());
+		verify(userService, times(1)).listUsers();
+
+		this.mockMvc.perform(get("/rest/api/user/userList").accept(MediaType.TEXT_PLAIN))
+				.andExpect(MockMvcResultMatchers.view().name("user"))
+				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp"));
+
+		verify(userService, times(1)).listUsers();
+		verifyNoMoreInteractions(userService);
+	}
+
+	/*
+	 * @Test public void testSetUserService() throws Exception { // TODO }
+	 */
+	@Test
+	public void testListUsersEmptyList() throws Exception {
+
+		Mockito.when(userService.listUsers()).thenReturn(Collections.emptyList());
+		assertEquals(2, userService.listUsers().size());
+		verify(userService, times(1)).listUsers();
+
+		this.mockMvc.perform(get("/rest/api/user/userList").accept(MediaType.TEXT_PLAIN))
+				.andExpect(MockMvcResultMatchers.view().name("user"))
+				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp"));
+
+		verify(userService, times(1)).listUsers();
+		verifyNoMoreInteractions(userService);
+	}
+
 	@Test
 	public void testListUsersByLastNameASC() throws Exception {
 		User first = new User();
@@ -146,7 +178,7 @@ public class UserControllerTest {
 
 		User test = Mockito.mock(User.class);
 
-		when(test.getId()).thenReturn(0);
+		when(test.getId()).thenReturn(new Long(0));
 
 		this.mockMvc.perform(post("/user/add").accept(MediaType.TEXT_PLAIN))
 				.andExpect(MockMvcResultMatchers.view().name("redirect:/users"))
@@ -340,6 +372,5 @@ public class UserControllerTest {
 		verify(userService, times(1)).getUsersBySpecificAddress(address);
 		verifyNoMoreInteractions(userService);
 	}
-	*/
 
 }

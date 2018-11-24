@@ -1,4 +1,4 @@
-package com.ebanks.springapp.integrationTests;
+package com.ebanks.springapp.test.itTests;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasItem;
@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -20,18 +19,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -49,12 +42,9 @@ import com.ebanks.springapp.model.User;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(
-  webEnvironment = WebEnvironment.RANDOM_PORT,
-  classes = SpringBootMvcHibernateApplication.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = SpringBootMvcHibernateApplication.class)
 @AutoConfigureMockMvc
-@TestPropertySource(
-  locations = "classpath:application-test.properties")
+@TestPropertySource(locations = "classpath:application-test.properties")
 //@ContextConfiguration("classpath:servlet-context.xml")
 public class ITUserControllerTest extends BaseIntegrationTest {
 	final static Logger logger = Logger.getLogger(ITUserControllerTest.class);
@@ -67,51 +57,45 @@ public class ITUserControllerTest extends BaseIntegrationTest {
 	private MockMvc mockMvc;
 
 	/*
-	@Value("${jdbc.driverClassName}")
-	private String jdbcClassName;
-
-	@Value("${jdbc.username}")
-	private String username;
-
-	@Value("${jdbc.password}")
-	private String password;
-
-	@Value("${jdbc.url}")
-	private String jdbcURL;*/
+	 * @Value("${jdbc.driverClassName}") private String jdbcClassName;
+	 * 
+	 * @Value("${jdbc.username}") private String username;
+	 * 
+	 * @Value("${jdbc.password}") private String password;
+	 * 
+	 * @Value("${jdbc.url}") private String jdbcURL;
+	 */
 
 	@Before
 	public void setup() throws SQLException {
 		MockitoAnnotations.initMocks(this);
 		/*
-		Connection connection = null;
-
-		try {
-			// this.mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
-			ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-			resourceDatabasePopulator.addScript(new ClassPathResource("sql/" + DBSCRIPT));
-
-			DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-			/*
-			 * driverManagerDatasource.setDriverClassName(JDBC_DRIVER_CLASS_NAME);
-			 * driverManagerDatasource.setUrl(JDBC_URL);
-			 * driverManagerDatasource.setUsername(JDBC_USERNAME);
-			 * driverManagerDatasource.setPassword(JDBC_PASSWORD);
-
-			driverManagerDataSource.setDriverClassName(jdbcClassName);
-			driverManagerDataSource.setUrl(jdbcURL);
-			driverManagerDataSource.setUsername(username);
-			driverManagerDataSource.setPassword(password);
-			logger.info("jdbcURL " + jdbcURL);
-
-			connection = driverManagerDataSource.getConnection();
-			resourceDatabasePopulator.populate(connection);
-		} catch (Exception ex) {
-			throw new RuntimeException("Could not initialize script: " + DBSCRIPT);
-		} finally {
-			if (connection != null) {
-				connection.close();
-			}
-		}*/
+		 * Connection connection = null;
+		 * 
+		 * try { // this.mockMvc =
+		 * MockMvcBuilders.standaloneSetup(userController).build();
+		 * ResourceDatabasePopulator resourceDatabasePopulator = new
+		 * ResourceDatabasePopulator(); resourceDatabasePopulator.addScript(new
+		 * ClassPathResource("sql/" + DBSCRIPT));
+		 * 
+		 * DriverManagerDataSource driverManagerDataSource = new
+		 * DriverManagerDataSource(); /*
+		 * driverManagerDatasource.setDriverClassName(JDBC_DRIVER_CLASS_NAME);
+		 * driverManagerDatasource.setUrl(JDBC_URL);
+		 * driverManagerDatasource.setUsername(JDBC_USERNAME);
+		 * driverManagerDatasource.setPassword(JDBC_PASSWORD);
+		 * 
+		 * driverManagerDataSource.setDriverClassName(jdbcClassName);
+		 * driverManagerDataSource.setUrl(jdbcURL);
+		 * driverManagerDataSource.setUsername(username);
+		 * driverManagerDataSource.setPassword(password); logger.info("jdbcURL " +
+		 * jdbcURL);
+		 * 
+		 * connection = driverManagerDataSource.getConnection();
+		 * resourceDatabasePopulator.populate(connection); } catch (Exception ex) {
+		 * throw new RuntimeException("Could not initialize script: " + DBSCRIPT); }
+		 * finally { if (connection != null) { connection.close(); } }
+		 */
 
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
@@ -120,8 +104,7 @@ public class ITUserControllerTest extends BaseIntegrationTest {
 	public void testListUsers() throws Exception {
 		this.mockMvc.perform(get("/users").accept(MediaType.TEXT_PLAIN))
 				.andExpect(MockMvcResultMatchers.view().name("user"))
-				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp"))
-				.andExpect(status().isOk())
+				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp")).andExpect(status().isOk())
 				.andExpect(content().string("")).andExpect(model().attribute("listUsers", hasSize(3)))
 				.andExpect(model().attribute("listUsers",
 						hasItem(allOf(hasProperty("id", is(21)), hasProperty("firstName", is("Eroc")),
