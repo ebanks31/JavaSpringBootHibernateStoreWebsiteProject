@@ -3,6 +3,7 @@ package com.ebanks.springapp.service;
 import java.util.List;
 
 import com.ebanks.springapp.model.Product;
+
 /**
  * The Interface PersonService.
  */
@@ -35,7 +36,7 @@ public interface ProductService {
 	 * @param id the id
 	 * @return the product by id
 	 */
-	Product getProductById(int id);
+	Product getProductById(long id);
 
 	/**
 	 * Removes the product.

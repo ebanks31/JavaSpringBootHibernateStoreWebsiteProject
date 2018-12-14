@@ -22,7 +22,7 @@ public interface ProductDAO {
 	 * @param productId the product id
 	 * @return the product based on id
 	 */
-	Product getProductById(int productId);
+	Product getProductById(long productId);
 
 	/**
 	 * Gets the products by cost.

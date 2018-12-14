@@ -24,7 +24,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	// Declaring columns of Person table for usage with Hibernate
-	private int id;
+	private long id;
 
 	/** The name. */
 	private String name;
@@ -241,7 +241,7 @@ public class Product {
 	 *
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -250,7 +250,7 @@ public class Product {
 	 *
 	 * @param id the new id
 	 */
-	public void setId(final int id) {
+	public void setId(final long id) {
 		this.id = id;
 	}
 

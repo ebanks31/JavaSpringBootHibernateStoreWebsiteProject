@@ -20,11 +20,13 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -46,6 +48,9 @@ import com.ebanks.springapp.service.UserService;
 //@ContextConfiguration("classpath:servlet-context.xml")
 public class UserControllerTest {
 
+	@Rule
+	PowerMockRule powerMockRule = new PowerMockRule();
+
 	@Autowired
 	private WebApplicationContext wac;
 
@@ -56,6 +61,8 @@ public class UserControllerTest {
 
 	@Mock
 	User mockUser;
+
+	private static final String LIST_USERS_MODEL = "listUser";
 
 	@Before
 	public void setup() {
@@ -89,11 +96,11 @@ public class UserControllerTest {
 				// .andExpect(MockMvcResultMatchers.view().name("user"))
 				// .andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp"))
 				.andExpect(status().isOk()).andExpect(content().string(""))
-				.andExpect(model().attribute("listUser", hasSize(2)))
-				.andExpect(model().attribute("listUser",
+				.andExpect(model().attribute(LIST_USERS_MODEL, hasSize(2)))
+				.andExpect(model().attribute(LIST_USERS_MODEL,
 						hasItem(allOf(hasProperty("id", is(0)), hasProperty("firstName", is("Eroc")),
 								hasProperty("lastName", is("Banks")), hasProperty("age", is(17))))))
-				.andExpect(model().attribute("todos",
+				.andExpect(model().attribute(LIST_USERS_MODEL,
 						hasItem(allOf(hasProperty("id", is(2)), hasProperty("firstName", is("Fred")),
 								hasProperty("lastName", is("Taylor")), hasProperty("age", is(24))))));
 
@@ -160,7 +167,7 @@ public class UserControllerTest {
 				.andExpect(model().attribute("user",
 						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("Eroc")),
 								hasProperty("lastName", is("Banks")), hasProperty("age", is(17))))))
-				.andExpect(model().attribute("todos",
+				.andExpect(model().attribute(LIST_USERS_MODEL,
 						hasItem(allOf(hasProperty("id", is(2)), hasProperty("firstName", is("Fred")),
 								hasProperty("lastName", is("Taylor")), hasProperty("age", is(24))))));
 

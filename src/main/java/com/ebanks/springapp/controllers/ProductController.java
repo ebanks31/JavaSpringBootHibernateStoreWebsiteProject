@@ -62,7 +62,7 @@ public class ProductController {
 	 * @return the page view
 	 */
 	@PostMapping(value = "/product/add")
-	public String addPerson(@ModelAttribute("productAttribute") Product product) {
+	public String addProduct(@ModelAttribute("productAttribute") Product product) {
 		PRODUCT_CONTROLLER_LOGGER.info("product Id: " + product.getId());
 
 		if (product.getId() == 0) {
@@ -99,7 +99,7 @@ public class ProductController {
 	 * @return the page view
 	 */
 	@GetMapping(value = "/product/edit/{id}")
-	public String editPerson(@PathVariable("id") final int id, final Model model) {
+	public String editProduct(@PathVariable("id") final int id, final Model model) {
 		model.addAttribute(PRODUCT, this.productService.getProductById(id));
 		model.addAttribute(LIST_PRODUCTS_MODEL, this.productService.listProducts());
 		return PRODUCT;

@@ -108,7 +108,7 @@ public class ProductDAOImpl implements ProductDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Product getProductById(final int productId) {
+	public Product getProductById(final long productId) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria crit = session.createCriteria(Product.class);
 		crit.add(Restrictions.eq("id", productId));

@@ -1,4 +1,4 @@
-package com.ebanks.springapp.test.utTests;
+package com.ebanks.springapp.test.rest;
 
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.hasItem;

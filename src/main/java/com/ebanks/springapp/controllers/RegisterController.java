@@ -28,6 +28,7 @@ public class RegisterController {
 
 	/** The Constant REGISTRATION. */
 	private static final String REGISTRATION = "registration";
+	private static final String HOME = "home";
 
 	/** The user service. */
 	@Autowired
@@ -93,7 +94,7 @@ public class RegisterController {
 			createUserAccount(user);
 			modelAndView.addObject("successMessage", "User has been registered successfully");
 			modelAndView.addObject("user", new User());
-			modelAndView.setViewName(REGISTRATION);
+			modelAndView.setViewName(HOME);
 
 		}
 		return modelAndView;
