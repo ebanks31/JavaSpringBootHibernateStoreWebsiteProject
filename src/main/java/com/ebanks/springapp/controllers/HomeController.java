@@ -61,7 +61,7 @@ public class HomeController {
 		modelAndView.addObject("userName",
 				"Welcome " + user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
 		modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
-		modelAndView.setViewName("home");
+		modelAndView.setViewName("adminHome");
 		HOME_LOGGER.info("Going to home page");
 
 		return modelAndView;

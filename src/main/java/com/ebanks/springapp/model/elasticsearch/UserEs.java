@@ -47,14 +47,14 @@ public class UserEs {
 	private String username;
 
 	/** The password. */
-	//@NotNull
+	// @NotNull
 	// @NotEmpty
 	private String password;
 
 	/** The matching password. */
 	// @NotNull
 	// @NotEmpty
-	//@JsonIgnore
+	// @JsonIgnore
 	private String matchingPassword;
 
 	/** The boolean indicating whether a user is active. */
@@ -95,8 +95,7 @@ public class UserEs {
 	/**
 	 * Sets the matching password.
 	 *
-	 * @param matchingPassword
-	 *            the new matching password
+	 * @param matchingPassword the new matching password
 	 */
 	public void setMatchingPassword(String matchingPassword) {
 		this.matchingPassword = matchingPassword;
@@ -114,8 +113,7 @@ public class UserEs {
 	/**
 	 * Sets the display name.
 	 *
-	 * @param displayName
-	 *            the new display name
+	 * @param displayName the new display name
 	 */
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
@@ -133,8 +131,7 @@ public class UserEs {
 	/**
 	 * Sets the user to be active or not.
 	 *
-	 * @param active
-	 *            the new active
+	 * @param active the new active
 	 */
 	public void setActive(boolean active) {
 		this.active = active;
@@ -152,8 +149,7 @@ public class UserEs {
 	/**
 	 * Sets the username.
 	 *
-	 * @param username
-	 *            the new username
+	 * @param username the new username
 	 */
 	public void setUsername(String username) {
 		this.username = username;
@@ -171,8 +167,7 @@ public class UserEs {
 	/**
 	 * Sets the password.
 	 *
-	 * @param password
-	 *            the password
+	 * @param password the password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -190,8 +185,7 @@ public class UserEs {
 	/**
 	 * Sets the age.
 	 *
-	 * @param age
-	 *            the new age
+	 * @param age the new age
 	 */
 	public void setAge(final int age) {
 		this.age = age;
@@ -209,8 +203,7 @@ public class UserEs {
 	/**
 	 * Sets the id.
 	 *
-	 * @param user_id
-	 *            the new id
+	 * @param user_id the new id
 	 */
 	public void setId(final int id) {
 		this.id = id;
@@ -228,8 +221,7 @@ public class UserEs {
 	/**
 	 * Sets the first name.
 	 *
-	 * @param firstName
-	 *            the new first name
+	 * @param firstName the new first name
 	 */
 	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
@@ -247,8 +239,7 @@ public class UserEs {
 	/**
 	 * Sets the last name.
 	 *
-	 * @param lastName
-	 *            the new last name
+	 * @param lastName the new last name
 	 */
 	public void setLastName(final String lastName) {
 		this.lastName = lastName;
@@ -266,8 +257,7 @@ public class UserEs {
 	/**
 	 * Sets the email.
 	 *
-	 * @param email
-	 *            the new email
+	 * @param email the new email
 	 */
 	public void setEmail(final String email) {
 		this.email = email;
@@ -285,8 +275,7 @@ public class UserEs {
 	/**
 	 * Sets the address.
 	 *
-	 * @param address
-	 *            the new address
+	 * @param address the new address
 	 */
 	public void setAddress(final String address) {
 		this.address = address;
@@ -304,8 +293,7 @@ public class UserEs {
 	/**
 	 * Sets the phone number.
 	 *
-	 * @param phoneNumber
-	 *            the new phone number
+	 * @param phoneNumber the new phone number
 	 */
 	public void setPhoneNumber(final String phoneNumber) {
 		this.phoneNumber = phoneNumber;
@@ -323,20 +311,18 @@ public class UserEs {
 	/**
 	 * Sets the ownership.
 	 *
-	 * @param ownership
-	 *            the new ownership
+	 * @param ownership the new ownership
 	 */
 	public void setOwnership(final String ownership) {
 		this.ownership = ownership;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "id=" + id + ", firstname=" + firstName + " lastname=" + lastName + " age = " + age;
+		return "UserEs [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", email="
+				+ email + ", address=" + address + ", phoneNumber=" + phoneNumber + ", ownership=" + ownership
+				+ ", username=" + username + ", password=" + password + ", matchingPassword=" + matchingPassword
+				+ ", active=" + active + ", displayName=" + displayName + "]";
 	}
+
 }

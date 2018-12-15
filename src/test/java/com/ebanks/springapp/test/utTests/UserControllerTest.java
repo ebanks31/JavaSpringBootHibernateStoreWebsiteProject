@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -19,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -72,6 +74,11 @@ public class UserControllerTest {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 
+	@After
+	private void cleanUp() {
+		reset();
+	}
+
 	/*
 	 * @Test public void testSetUserService() throws Exception { // TODO }
 	 */
@@ -79,8 +86,8 @@ public class UserControllerTest {
 	public void testListUsers() throws Exception {
 		User first = new User();
 		first.setId(1);
-		first.setFirstName("Eroc");
-		first.setLastName("Banks");
+		first.setFirstName("firstname");
+		first.setLastName("lastname");
 		first.setAge(17);
 
 		User second = new User();
@@ -98,8 +105,8 @@ public class UserControllerTest {
 				.andExpect(status().isOk()).andExpect(content().string(""))
 				.andExpect(model().attribute(LIST_USERS_MODEL, hasSize(2)))
 				.andExpect(model().attribute(LIST_USERS_MODEL,
-						hasItem(allOf(hasProperty("id", is(0)), hasProperty("firstName", is("Eroc")),
-								hasProperty("lastName", is("Banks")), hasProperty("age", is(17))))))
+						hasItem(allOf(hasProperty("id", is(0)), hasProperty("firstName", is("firstname")),
+								hasProperty("lastName", is("lastname")), hasProperty("age", is(17))))))
 				.andExpect(model().attribute(LIST_USERS_MODEL,
 						hasItem(allOf(hasProperty("id", is(2)), hasProperty("firstName", is("Fred")),
 								hasProperty("lastName", is("Taylor")), hasProperty("age", is(24))))));
@@ -148,8 +155,8 @@ public class UserControllerTest {
 	public void testListUsersByLastNameASC() throws Exception {
 		User first = new User();
 		first.setId(1);
-		first.setFirstName("Eroc");
-		first.setLastName("Banks");
+		first.setFirstName("firstname");
+		first.setLastName("lastname");
 		first.setAge(17);
 
 		User second = new User();
@@ -165,8 +172,8 @@ public class UserControllerTest {
 				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp")).andExpect(status().isOk())
 				.andExpect(content().string("")).andExpect(model().attribute("user", hasSize(2)))
 				.andExpect(model().attribute("user",
-						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("Eroc")),
-								hasProperty("lastName", is("Banks")), hasProperty("age", is(17))))))
+						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("firstname")),
+								hasProperty("lastName", is("lastname")), hasProperty("age", is(17))))))
 				.andExpect(model().attribute(LIST_USERS_MODEL,
 						hasItem(allOf(hasProperty("id", is(2)), hasProperty("firstName", is("Fred")),
 								hasProperty("lastName", is("Taylor")), hasProperty("age", is(24))))));
@@ -179,8 +186,8 @@ public class UserControllerTest {
 	public void testAddUser() throws Exception {
 		User first = new User();
 		first.setId(1);
-		first.setFirstName("Eroc");
-		first.setLastName("Banks");
+		first.setFirstName("firstname");
+		first.setLastName("lastname");
 		first.setAge(17);
 
 		User test = Mockito.mock(User.class);
@@ -192,8 +199,8 @@ public class UserControllerTest {
 				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp")).andExpect(status().isOk())
 				.andExpect(content().string("")).andExpect(model().attribute("user", hasSize(2)))
 				.andExpect(model().attribute("user",
-						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("Eroc")),
-								hasProperty("lastName", is("Banks")), hasProperty("age", is(17))))));
+						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("firstname")),
+								hasProperty("lastName", is("lastname")), hasProperty("age", is(17))))));
 
 		verify(userService, times(1)).addUser(first);
 		verifyNoMoreInteractions(userService);
@@ -203,8 +210,8 @@ public class UserControllerTest {
 	public void testRemoveUser() throws Exception {
 		User first = new User();
 		first.setId(1);
-		first.setFirstName("Eroc");
-		first.setLastName("Banks");
+		first.setFirstName("firstname");
+		first.setLastName("lastname");
 		first.setAge(17);
 
 		User second = new User();
@@ -227,8 +234,8 @@ public class UserControllerTest {
 	public void testEditUser() throws Exception {
 		User first = new User();
 		first.setId(1);
-		first.setFirstName("Eroc");
-		first.setLastName("Banks");
+		first.setFirstName("firstname");
+		first.setLastName("lastname");
 		first.setAge(17);
 
 		User second = new User();
@@ -248,8 +255,8 @@ public class UserControllerTest {
 				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp")).andExpect(status().isOk())
 				.andExpect(content().string("")).andExpect(model().attribute("user", hasSize(2)))
 				.andExpect(model().attribute("user",
-						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("Eroc")),
-								hasProperty("lastName", is("Banks")), hasProperty("age", is(17))))));
+						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("firstname")),
+								hasProperty("lastName", is("lastname")), hasProperty("age", is(17))))));
 
 		verify(userService, times(1)).listUsers();
 		verifyNoMoreInteractions(userService);
@@ -271,8 +278,8 @@ public class UserControllerTest {
 
 		User first = new User();
 		first.setId(1);
-		first.setFirstName("Eroc");
-		first.setLastName("Banks");
+		first.setFirstName("firstname");
+		first.setLastName("lastname");
 		first.setAge(17);
 
 		User second = new User();
@@ -288,8 +295,8 @@ public class UserControllerTest {
 				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp")).andExpect(status().isOk())
 				.andExpect(content().string("")).andExpect(model().attribute("user", hasSize(2)))
 				.andExpect(model().attribute("user",
-						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("Eroc")),
-								hasProperty("lastName", is("Banks")), hasProperty("age", is(17))))))
+						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("firstname")),
+								hasProperty("lastName", is("lastname")), hasProperty("age", is(17))))))
 				.andExpect(model().attribute("user",
 						hasItem(allOf(hasProperty("id", is(2)), hasProperty("firstName", is("Fred")),
 								hasProperty("lastName", is("Taylor")), hasProperty("age", is(24))))));
@@ -302,8 +309,8 @@ public class UserControllerTest {
 	public void testListUsersByDistinctAddressModel() throws Exception {
 		User first = new User();
 		first.setId(1);
-		first.setFirstName("Eroc");
-		first.setLastName("Banks");
+		first.setFirstName("firstname");
+		first.setLastName("lastname");
 		first.setAge(17);
 		first.setAddress("234 Hello Dr.");
 
@@ -328,8 +335,8 @@ public class UserControllerTest {
 				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp")).andExpect(status().isOk())
 				.andExpect(content().string("")).andExpect(model().attribute("user", hasSize(2)))
 				.andExpect(model().attribute("user",
-						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("Eroc")),
-								hasProperty("lastName", is("Banks")), hasProperty("age", is(17))))))
+						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("firstname")),
+								hasProperty("lastName", is("lastname")), hasProperty("age", is(17))))))
 				.andExpect(model().attribute("user",
 						hasItem(allOf(hasProperty("id", is(2)), hasProperty("firstName", is("Fred")),
 								hasProperty("lastName", is("Taylor")), hasProperty("age", is(24))))));
@@ -342,8 +349,8 @@ public class UserControllerTest {
 	public void testListUsersBySpecificAddress() throws Exception {
 		User first = new User();
 		first.setId(1);
-		first.setFirstName("Eroc");
-		first.setLastName("Banks");
+		first.setFirstName("firstname");
+		first.setLastName("lastname");
 		first.setAge(17);
 		first.setAddress("234 Hello Dr.");
 
@@ -370,8 +377,8 @@ public class UserControllerTest {
 				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/user.jsp")).andExpect(status().isOk())
 				.andExpect(content().string("")).andExpect(model().attribute("user", hasSize(2)))
 				.andExpect(model().attribute("user",
-						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("Eroc")),
-								hasProperty("lastName", is("Banks")), hasProperty("age", is(17))))))
+						hasItem(allOf(hasProperty("id", is(1)), hasProperty("firstName", is("firstname")),
+								hasProperty("lastName", is("lastname")), hasProperty("age", is(17))))))
 				.andExpect(model().attribute("user",
 						hasItem(allOf(hasProperty("id", is(2)), hasProperty("firstName", is("Fred")),
 								hasProperty("lastName", is("Taylor")), hasProperty("age", is(24))))));

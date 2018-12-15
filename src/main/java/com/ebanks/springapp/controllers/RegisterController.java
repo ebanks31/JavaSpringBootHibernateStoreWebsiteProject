@@ -5,9 +5,7 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,15 +37,14 @@ public class RegisterController {
 	 *
 	 * @param model the model
 	 * @return the page view
+	 * 
+	 * @GetMapping(value = "/user/register") public String register(Model model) {
+	 *                   User user = new User(); model.addAttribute("user", user);
+	 *                   REGISTER_CONTROLLER_LOGGER.info("User has entered
+	 *                   registration page");
+	 * 
+	 *                   return REGISTRATION; }
 	 */
-	@GetMapping(value = "/user/register")
-	public String register(Model model) {
-		User user = new User();
-		model.addAttribute("user", user);
-		REGISTER_CONTROLLER_LOGGER.info("User has entered registration page");
-
-		return REGISTRATION;
-	}
 
 	/**
 	 * Registers the user account.
