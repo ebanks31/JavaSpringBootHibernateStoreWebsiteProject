@@ -2,6 +2,8 @@ package com.ebanks.springapp.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManagerFactory;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
+import com.ebanks.springapp.config.HibernateConfig;
 import com.ebanks.springapp.model.User;
 
 /**
@@ -35,7 +38,18 @@ public class UserDAOImpl implements UserDAO {
 	private static final String NONOWNERSHIP = "non-owner";
 
 	@Autowired
-	private SessionFactory sessionFactory;
+	private EntityManagerFactory entityManagerFactory;
+
+	private HibernateConfig hncf = new HibernateConfig();
+
+	/**
+	 * Gets the session factory.
+	 *
+	 * @return the session factory
+	 */
+	private SessionFactory getSessionFactory() {
+		return hncf.sessionFactory(entityManagerFactory);
+	}
 
 	/**
 	 * Sets the session factory.
@@ -54,7 +68,7 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	@Override
 	public void addUser(final User user) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		session.persist(user);
 		USER_LOGGER.info(String.format("User saved successfully, User Details = %s", user));
 	}
@@ -66,7 +80,7 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	@Override
 	public final void updateUser(final User user) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		session.update(user);
 		USER_LOGGER.info("User updated successfully, User Details = {}", user);
 	}
@@ -78,7 +92,7 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	@Override
 	public void removeUserById(final long id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		User user = session.load(User.class, new Long(id));
 
 		if (user != null) {
@@ -94,7 +108,7 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	@Override
 	public void removeUser(User user) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 
 		if (user != null) {
 			session.delete(user);
@@ -108,7 +122,7 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> listUsers() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 		for (User user : usersList) {
 			USER_LOGGER.info("User List::{}", user);
@@ -129,7 +143,7 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> listUsersOrderbyLastNameASC() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 		Criteria criteria = session.createCriteria(User.class).addOrder(Order.asc(LASTNAME));
 		List<User> countList = criteria.list();
@@ -145,7 +159,7 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> listUsersOrderbyLastNameDESC() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 		Criteria criteria = session.createCriteria(User.class).addOrder(Order.asc(LASTNAME));
 		List<User> countList = criteria.list();
@@ -161,7 +175,7 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> listUsersAboveOrEqualToLegalAge() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 		Criteria criteria = session.createCriteria(User.class).addOrder(Order.asc(AGE));
 
@@ -180,7 +194,7 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> listUsersLessThanLegalAge() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 		Criteria criteria = session.createCriteria(User.class).addOrder(Order.asc(AGE));
 
@@ -198,7 +212,7 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUsersByAverageMinMaxAge() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		Criteria criteria = session.createCriteria(User.class);
 
 		ProjectionList projectionList = Projections.projectionList();
@@ -216,7 +230,7 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	@Override
 	public User getUserById(final long id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		User user = (User) session.load(User.class, new Long(id));
 		USER_LOGGER.info("User loaded successfully, User details = {}", user);
 		return user;
@@ -229,7 +243,7 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	@Override
 	public User getUserByUserName(final String username) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		Criteria crit = session.createCriteria(User.class);
 		crit.add(Restrictions.eq("username", username));
 		crit.setMaxResults(1);
@@ -249,7 +263,7 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public final List<User> getUsersByAddress(final String address) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 
 		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq(ADDRESS, address));
@@ -272,7 +286,7 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public final List<User> getUsersByOwnership() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 
 		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq(OWNERSHIP, NONOWNERSHIP));
@@ -290,7 +304,7 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public final List<User> getUsersByWithOutOwnership() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 
 		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq(OWNERSHIP, NONOWNERSHIP));
@@ -309,7 +323,7 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	@Override
 	public final List<Object[]> getUsersByAddressListByGivenParameters(final List<String> addressList) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 		// Gets address by ArrayList of Strings passed in.
 		// Criteria criteria = session.createCriteria(User.class);
@@ -349,7 +363,7 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUsersByDistinctAddress() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 
 		Criteria criteria = session.createCriteria(User.class);
@@ -371,7 +385,7 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	@Override
 	public List<User> getUsersBySpecificAddress(final String address) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSessionFactory().getCurrentSession();
 		List<User> usersList = session.createQuery(FROM_USER_TABLE).list();
 
 		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq(ADDRESS, ADDRESS));

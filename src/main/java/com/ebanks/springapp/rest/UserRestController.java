@@ -139,7 +139,7 @@ public class UserRestController {
 	 * @param id the id
 	 * @return the page view
 	 */
-	@GetMapping(value = "/remove1/{id}")
+	@GetMapping(value = "/removeUser/{id}")
 	public ResponseEntity<?> removePerson(@RequestBody User user) {
 
 		this.userService.removeUser(user);
